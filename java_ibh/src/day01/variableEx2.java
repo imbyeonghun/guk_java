@@ -2,7 +2,7 @@ package day01;
 
 public class variableEx2 {
 
-	// 숫자형 변수 선언 예제
+	// 정수형 변수 선언 예제
 	public static void main(String[] args) {
 
 		/*8bit  = 1byte
