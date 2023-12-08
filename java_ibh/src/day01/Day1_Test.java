@@ -12,6 +12,8 @@ public class Day1_Test {
 		
 		// 2. 국어,영어,수학 성적 입력하여 평균을 구하려하는데
 		// 이때 필요한 변수들 선언
-		int korea, eng, math,total;
+		int korea1, eng1, math1, total1;
+		double korea2, eng2, math2, total2;
+		double avg;
 	}
 }
