@@ -1,5 +1,6 @@
 package day06;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class HomeWorkEx2 {
@@ -57,8 +58,8 @@ public class HomeWorkEx2 {
 		int record = 0; // 기록
 		int S = 0, B = 0, O = 0; // s,b,o 초기화
 		
-		String[] bestRecord = new String[5]; // 상위 기록 5개 배열
-		String[] name = new String[5]; 		 // 이름 저장할 배열
+		int[] bestRecord = new int[6];   // 상위 기록 5개 + 새로 추가할 배열 1개
+		String[] naming = new String[6]; // 상위기록 이름 5개 + 새로 추가할 배열 1개 
 		
 		// 랜덤 3수를 배열에 넣고 입력받은 값도 배열에 넣고
 		int[] pass = new int[] {ran1,ran2,ran3};
@@ -147,16 +148,40 @@ public class HomeWorkEx2 {
 				System.out.println("도전 횟수 : " + record);
 				System.out.println("이름을 기록하세요.");
 				System.out.print("이름 : ");
-				// nextLine() 주의 
-				// 이전 scan에서 next,nextint,nextLine에서 enter를 저장하고 있기 때문에 
-				// next,nextint는 엔터를 버리지만 nextLine은 엔터를 가져오기 때문에 조심
-				String naming = scan.next(); // 기록할 이름
+				/*
+				nextLine() 주의 
+				이전 scan에서 next,nextint,nextLine에서 enter를 저장하고 있기 때문에 
+				next,nextint는 엔터를 버리지만 nextLine은 엔터를 가져오기 때문에 조심
+				*/
+				
+				if(bestRecord[0] == 0) {
+					bestRecord[0] = record; 	// 첫 게임이면 0번째 인자에 넣음
+				}else {
+					// 새로운 기록을 6번째 인자에 넣고 해당 배열을 오름차순으로 정렬
+					bestRecord[5] = record;
+					Arrays.sort(bestRecord);
+				}
+				
+				// 해당인자를 출력하고,이름을 입력받기
+				String name = scan.next(); // 기록할 이름
+				System.out.println("---------");
+				naming[5] = name;
+				for(int j = 0; j < naming.length; j++) {
+					if(bestRecord[j] == record) {
+						naming[j] = naming[5];
+					}
+				}
+				
 				break;
 				
 			case 2:
 				System.out.println("--기록--");
-				System.out.println(record);
-				// 상위 5개 기록 저장 후 출력
+				// 배열 추가 및 오름차순으로 정렬
+				// 상위 5개 기록 출력
+				for(int i = 0; i < 5; i++) {
+					
+					System.out.println((i + 1) + ". " + naming[i] + " : " + bestRecord[i]);
+				}
 				break;
 				
 			case 3:
