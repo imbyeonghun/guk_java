@@ -1,6 +1,5 @@
 package day06;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class HomeWorkEx2 {
@@ -55,8 +54,9 @@ public class HomeWorkEx2 {
 		int ran1 = (int)(Math.random() * (max - min + 1) - min);
 		int ran2 = (int)(Math.random() * (max - min + 1) - min);
 		int ran3 = (int)(Math.random() * (max - min + 1) - min);
-		int record = 0; // 기록
-		int S = 0, B = 0, O = 0; // s,b,o 초기화
+		int record = 0;				 // 기록
+		int coin = 0;   			 // 플레이 판수 저장할 변수
+		int S = 0, B = 0, O = 0; 	 // s,b,o 초기화
 		
 		int[] bestRecord = new int[6];   // 상위 기록 5개 + 새로 추가할 배열 1개
 		String[] naming = new String[6]; // 상위기록 이름 5개 + 새로 추가할 배열 1개 
@@ -81,10 +81,6 @@ public class HomeWorkEx2 {
 				pass[count++] = r;
 			}
 		}
-				
-		System.out.print(pass[0]);
-		System.out.print(pass[1]);
-		System.out.println(pass[2]);
 		
 		//반복문 선택한 메뉴가 프로그램 종료가 아닐때까지
 		do {
@@ -110,6 +106,10 @@ public class HomeWorkEx2 {
 					int num3 = scan.nextInt();
 					
 					user = new int[] {num1,num2,num3};
+					
+					System.out.print(pass[0]);
+					System.out.print(pass[1]);
+					System.out.println(pass[2]);
 					
 					// 입력받은 값을 초기화 해준다.
 					S = 0;
@@ -144,43 +144,54 @@ public class HomeWorkEx2 {
 					System.out.println(S + "S " + B + "B " +  O + "O");
 					record++;
 					
-				}while(S != 3); // do
-				System.out.println("도전 횟수 : " + record);
-				System.out.println("이름을 기록하세요.");
-				System.out.print("이름 : ");
+				}while(S != 3); // end do
+				
 				/*
 				nextLine() 주의 
 				이전 scan에서 next,nextint,nextLine에서 enter를 저장하고 있기 때문에 
 				next,nextint는 엔터를 버리지만 nextLine은 엔터를 가져오기 때문에 조심
 				*/
 				
+				System.out.println("도전 횟수 : " + record);
+				System.out.println("이름을 기록하세요.");
+				System.out.print("이름 : ");
+				String name = scan.next(); // 기록할 이름
+				
+				System.out.println("---------");
+				
+				coin++;		  // 한게임 끝나면 플레이 수 증가				
 				if(bestRecord[0] == 0) {
 					bestRecord[0] = record; 	// 첫 게임이면 0번째 인자에 넣음
 				}else {
 					// 새로운 기록을 6번째 인자에 넣고 해당 배열을 오름차순으로 정렬
 					bestRecord[5] = record;
+					
+					/*
 					Arrays.sort(bestRecord);
+					Arrays.sort()로 하면 0이 들어간 인자가 있기 때문에
+					원하는 결과 출력 안 됨
+					*/
+					
+					// i인자 값과 비교해서 작으면 i인자에 넣고 해당 값을 그 다음 인자에 넣기
+					// i인자보다 크면 그 i를 올려서 진행
+						
 				}
-				
-				// 해당인자를 출력하고,이름을 입력받기
-				String name = scan.next(); // 기록할 이름
-				System.out.println("---------");
 				naming[5] = name;
 				for(int j = 0; j < naming.length; j++) {
 					if(bestRecord[j] == record) {
 						naming[j] = naming[5];
 					}
 				}
-				
 				break;
 				
 			case 2:
 				System.out.println("--기록--");
+				
 				// 배열 추가 및 오름차순으로 정렬
 				// 상위 5개 기록 출력
 				for(int i = 0; i < 5; i++) {
-					
-					System.out.println((i + 1) + ". " + naming[i] + " : " + bestRecord[i]);
+					System.out.println((i + 1) + ". " + naming[i] 
+							+ " : " + bestRecord[i]);
 				}
 				break;
 				
