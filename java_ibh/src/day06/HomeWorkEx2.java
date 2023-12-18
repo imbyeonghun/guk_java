@@ -1,5 +1,6 @@
 package day06;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class HomeWorkEx2 {
@@ -55,7 +56,7 @@ public class HomeWorkEx2 {
 		int ran2 = (int)(Math.random() * (max - min + 1) - min);
 		int ran3 = (int)(Math.random() * (max - min + 1) - min);
 		int record = 0;				 // 기록
-		int coin = 0;   			 // 플레이 판수 저장할 변수
+		int coin = 0;
 		int S = 0, B = 0, O = 0; 	 // s,b,o 초기화
 		
 		int[] bestRecord = new int[6];   // 상위 기록 5개 + 새로 추가할 배열 1개
@@ -64,6 +65,11 @@ public class HomeWorkEx2 {
 		// 랜덤 3수를 배열에 넣고 입력받은 값도 배열에 넣고
 		int[] pass = new int[] {ran1,ran2,ran3};
 		int[] user = new int[3];
+		
+		// records를 가장 큰 값으로 초기화
+		for(int i = 0; i < bestRecord.length; i++) {
+			bestRecord[i] = Integer.MAX_VALUE;		// Integer.MAX_VALUE : int 중에 가장 큰 값 
+		}
 		
 		int count = 0;
 		while(count < pass.length) {
@@ -159,39 +165,55 @@ public class HomeWorkEx2 {
 				
 				System.out.println("---------");
 				
-				coin++;		  // 한게임 끝나면 플레이 수 증가				
+				coin++;		  // 한게임 끝나면 플레이 수 증가		
+				
 				if(bestRecord[0] == 0) {
 					bestRecord[0] = record; 	// 첫 게임이면 0번째 인자에 넣음
 				}else {
 					// 새로운 기록을 6번째 인자에 넣고 해당 배열을 오름차순으로 정렬
 					bestRecord[5] = record;
-					
-					/*
 					Arrays.sort(bestRecord);
-					Arrays.sort()로 하면 0이 들어간 인자가 있기 때문에
-					원하는 결과 출력 안 됨
-					*/
-					
-					// i인자 값과 비교해서 작으면 i인자에 넣고 해당 값을 그 다음 인자에 넣기
-					// i인자보다 크면 그 i를 올려서 진행
-						
 				}
+				
 				naming[5] = name;
+				
 				for(int j = 0; j < naming.length; j++) {
 					if(bestRecord[j] == record) {
 						naming[j] = naming[5];
 					}
 				}
+				
+				int index = 0;		// 새 게임의 기록이 들어갈 위치 저장할 변수
+				for(int i = 0; i < coin; i++) {
+					/*
+					 * 1 3 5 7 0
+					 * 1 3 3 5 7
+					 * 1 2 3 5 7
+					 */
+					
+					// 현재 게임의 기록이 들어갈 위치를 찾음
+					if(coin < bestRecord[i]) {
+						index = i;
+						break;
+					}
+				}
+				
+				coin = coin < 5 ? coin + 1 : coin;
+				for(int i = coin - 1; i > index; i--) {
+					naming[i] = naming[i -1];
+				}
+				naming[index] = name;
+				
+				record = 0;
 				break;
 				
 			case 2:
-				System.out.println("--기록--");
-				
-				// 배열 추가 및 오름차순으로 정렬
-				// 상위 5개 기록 출력
-				for(int i = 0; i < 5; i++) {
-					System.out.println((i + 1) + ". " + naming[i] 
-							+ " : " + bestRecord[i]);
+				if(coin == 0) {
+					System.out.println("기록이 없습니다.");
+				}else {
+					for(int i = 0; i < coin; i++) {
+						System.out.println((i + 1) + "등 : " + bestRecord[i] + "회 -" + naming[i]);
+					}
 				}
 				break;
 				
