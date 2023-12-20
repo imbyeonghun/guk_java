@@ -199,12 +199,14 @@ public class BoardMain2 {
 					// 새로 생성한 배열에 원하는 값이 있는 인덱스까지 복사				
 					System.arraycopy(boardList, 0, tmpList, 0, num-1);	// bdLi == tmpLi
 					
+					@@@
 					// 나머지 배열 복사
 					// System.arraycopy(boardList, num, tmpList, num+1, boardList.length-2);
 					// 위 코드가 오류인 이유 : num변수는 배열 인수랑 다름
 					
-					// !!복사코드 오류!!
+					// 나머지 배열 복사
 					System.arraycopy(boardList, i+1, tmpList, i, boardList.length-i-1);
+					
 					// 새로 생성된 배열을 boardList에 연결
 					boardList = tmpList;
 					
