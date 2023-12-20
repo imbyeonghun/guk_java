@@ -187,7 +187,7 @@ public class BoardMain2 {
 			// 게시글 삭제할 게시물 번호를 입력
 			System.out.print("삭제 할 게시글 번호 : ");
 			int num = scan.nextInt();
-			
+			/*
 			// 반복문 : 게시물 목록 전체
 			for(int i = 0; i < count; i++) {
 				// 입력한 게시글 번호와 일치하는 게시글이 있으면
@@ -204,8 +204,7 @@ public class BoardMain2 {
 					// 위 코드가 오류인 이유 : num변수는 배열 인수랑 다름
 					
 					// !!복사코드 오류!!
-					
-					System.arraycopy(boardList, i+1, tmpList, i+1, boardList.length-i);
+					System.arraycopy(boardList, i+1, tmpList, i, boardList.length-i-1);
 					// 새로 생성된 배열을 boardList에 연결
 					boardList = tmpList;
 					
@@ -215,9 +214,9 @@ public class BoardMain2 {
 				}
 			}
 			System.out.println("일치하는 게시글이 없습니다.");
+			*/
 			
 			
-			/*
 			// 반복문 : 게시글 목록 전체
 			int index = -1; // 일치하는 게시글이 있는 번지
 			for(int i = 0; i < count; i++) {
@@ -245,8 +244,9 @@ public class BoardMain2 {
 			System.arraycopy(boardList, 0, tmpList, 0, boardList.length);
 			// 기존 배열에서 찾은 번지 다음부터 나머지 개수를 복사해서
 			// 새 배열에 찾은 번지부터 덮어씀
+			// 삭제할 인수 +1부터 끝까지 복사
 			System.arraycopy(tmpList, index+1, boardList, index, count - index);
-			*/
+			
 		}
 
 		/**
