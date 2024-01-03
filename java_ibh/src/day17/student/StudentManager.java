@@ -2,6 +2,9 @@ package day17.student;
 
 import java.util.ArrayList;
 
+import lombok.Data;
+
+@Data
 public class StudentManager {
 
 	private ArrayList<Student> list = new ArrayList<Student>();
@@ -44,5 +47,12 @@ public class StudentManager {
 	// 학생 정보 출력
 	public void printAll() {
 		list.stream().forEach(s->System.out.println(s));
+	}
+	
+	public void setList(ArrayList<Student> list) {
+		if(list == null) {
+			return;
+		}
+		this.list = list;
 	}
 }

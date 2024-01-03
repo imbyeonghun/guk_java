@@ -1,7 +1,15 @@
 package day17.student;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 import program.Program;
 
 public class StudentProgram implements Program {
@@ -13,7 +21,10 @@ public class StudentProgram implements Program {
 	@Override
 	public void run() {
 		int menu = 0;
+		String fileName = "src/day17/student/student.txt";
 		
+		// 불러오기
+		load(fileName);
 		do {
 			// 메뉴 출력
 			printMenu();
@@ -27,6 +38,34 @@ public class StudentProgram implements Program {
 				scan.nextLine();
 			}
 		}while(menu != EXIT);
+		// 저장
+		save(fileName);
+	}
+
+	private void save(String fileName) {
+		try(FileOutputStream fos = new FileOutputStream(fileName);
+			ObjectOutputStream oos = new ObjectOutputStream(fos)){
+			oos.writeObject(sm.getList());
+			System.out.println("저장하기를 성공했습니다.");
+		}catch(FileNotFoundException e) {
+			// 폴더 경로가 잘 못된 경우
+			System.out.println("지정된 위치에 파일을 찾을 수 없습니다.");
+		}catch(IOException e) {
+			System.out.println("저장에 실패했습니다.");
+		}
+	}
+
+	private void load(String fileName) {
+		try(FileInputStream fis = new FileInputStream(fileName);
+			ObjectInputStream ois = new ObjectInputStream(fis)){
+			sm.setList((ArrayList<Student>)ois.readObject());
+			System.out.println("불러오기를 성공했습니다.");
+		} catch (FileNotFoundException e) {
+			// 폴더 경로가 잘 못된 경우
+			System.out.println("지정된 위치에 파일을 찾을 수 없습니다.");
+		} catch (Exception e) {
+			System.out.println("불러오기에 실패했습니다.");
+		}
 	}
 
 	@Override

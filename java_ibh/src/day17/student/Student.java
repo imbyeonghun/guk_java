@@ -1,13 +1,15 @@
 package day17.student;
 
+import java.io.Serializable;
 import java.util.Objects;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data	// @getter, @setter, @ToString, @HashcodeAndEquals 등
 @AllArgsConstructor
-public class Student {
+public class Student implements Serializable {
+	
+	private static final long serialVersionUID = -6588474647564459241L;
 	
 	private int grade,classNum,num;
 	private String name;
