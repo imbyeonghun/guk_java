@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선택자 문제</title>
+    <style>
+        /* 
+        - 메뉴1에 글자색이 빨강이 되도록 작성
+        
+        .item-menu:first-of-type>.link-menu{
+            color: red;
+        }
+
+        - 메뉴 2와 메뉴3의 글자색이 빨강이 되도록 작성
+        
+        .item-menu:not(:first-of-type)>.link-menu{
+            color: red;
+        }
+
+        .item-menu~.item-menu > a{
+            color: red;
+        }
+        */
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <ul class="list-menu">
+            <li class="item-menu">
+                <a href="#" class="link-menu">메뉴1</a>
+            </li>
+            <li class="item-menu">
+                <a href="#" class="link-menu">메뉴2</a>
+            </li>
+            <li class="item-menu">
+                <a href="#" class="link-menu">메뉴3</a>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>
