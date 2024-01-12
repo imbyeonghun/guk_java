@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포지션 예제1</title>
+    <style>
+        /* 
+        body 태그의 높이를 1500px로 지정한 후 
+        브라우저 우측 하단에 위로가기 버튼을 추가하고
+        버튼을 클릭하면 위로 가도록 작성
+        이 때 위로가기 버튼은 50px 원으로 작성
+        */
+        body{
+            height: 1500px;
+        }
+        .btn{
+            position: fixed;
+            width: 50px; height: 50px;
+            bottom: 50px; right: 50px;
+            border: 1px solid black;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+<body id="body">
+    <a href="#body" class="btn">위로</a>
+</body>
+</html>
