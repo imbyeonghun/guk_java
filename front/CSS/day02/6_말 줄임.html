@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>말 줄임</title>
+    <style>
+        [class^=box]{ width: 300px; }
+        .box1{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .box2{ 
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 2;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">한 줄 예제입니다.한 줄 예제입니다.한 줄 예제입니다.한 줄 예제입니다.한 줄 예제입니다.한 줄 예제입니다.한 줄 예제입니다.한 줄 예제입니다.</div>
+    <br>
+    <div class="box2">두 줄 예제입니다.두 줄 예제입니다.두 줄 예제입니다.두 줄 예제입니다.두 줄 예제입니다.두 줄 예제입니다.두 줄 예제입니다.두 줄 예제입니다.두 줄 예제입니다.두 줄 예제입니다.두 줄 예제입니다.두 줄 예제입니다.두 줄 예제입니다.두 줄 예제입니다.</div>
+</body>
+</html>
