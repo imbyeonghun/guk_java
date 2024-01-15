@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test4</title>
+    <style>
+        .container2{
+            width: 500px;
+            border: 5px solid black;
+            padding: 10px;
+        }
+        .left-box2{
+            width: 200px;
+            height: 400px;
+            border: 5px solid red;
+            box-sizing: border-box;
+            float: left;
+        }
+        .right-box2{
+            width: 200px;
+            height: 400px;
+            border: 5px solid red;
+            box-sizing: border-box;
+            float: right;
+        }
+        .container2::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div class="container2">
+        <div class="left-box2">2</div>
+        <div class="right-box2">2</div>
+    </div>
+</body>
+</html>
