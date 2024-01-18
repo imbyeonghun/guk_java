@@ -8,14 +8,16 @@
         .container{ 
             height: 400px;
             display: flex; 
+
             /*flex-direction
              - 주축 방향을 설정
              - row : 가로, 왼-> 오, 기본값
              - row-reverse : 가로, 오->왼
              - column : 세로, 상->하
-             - column : 세로, 하->상
+             - column-reverse : 세로, 하->상
             */
             flex-direction: row;
+
             /*flex-wrap
             - 아이템들의 크기가 컨테이너보다 큰 경우 어떻게 할 건지를 
               정하는 속성
@@ -23,6 +25,7 @@
             - wrap : 새 라인에 배치, 새 라인은 아래
             - wrap-reverse : 새 라인에 배치, 새 라인은 위*/
             flex-wrap: wrap-reverse;
+
             /*flex-flow
             - flex-direction과 flex-flow를 한번에 적용하는 속성 */
             flex-flow: row wrap;
@@ -38,6 +41,7 @@
             - space-evenly : 모든 여백이 동일하도록 아이템을 배치
             */
             justify-content: space-between;
+
             /*align-items
             - 교차축 방향으로 아이템 배치 방법을 설정하는 속성
             - stretch : 교차축을 채우기 위해서 아이템을 늘림, 기본값
@@ -47,6 +51,7 @@
             - baseline : 아이템을 문자 기준선에 정렬
             */
             align-items: center;
+            
             /*align-content
             - 교차축의 정렬 방법을 설정, 줄 사이의 간격
             - stretch : 기본값, 교차축을 채우기 위해 아이템을 늘림
