@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>예제1</title>
+</head>
+<body>
+	<button id="btn">버튼</button>
+	<script>
+		/*
+		버튼을 만들고 버튼을 클릭하면 alert창으로 '클릭했습니다' 출력
+		*/
+
+		let btn = document.getElementById("btn");
+		
+		// function함수
+		btn.onclick = function(){
+			alert("클릭했습니다.");
+		}
+
+		// =>함수
+		btn.onclick = ()=>{
+			alert("클릭했습니다.");
+		}
+
+		// addEventListener
+		btn.addEventListener("click",()=>{
+			alert("클릭했습니다.");
+		});
+	</script>
+</body>
+</html>
