@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>테이블 탐색 예제</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성일</th>
+				<th>기능</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+				<th>2</th>
+				<th>가입인사</th>
+				<th>2024-01-24</th>
+				<th><button class="btn-del">삭제</button></th>
+			</tr>
+			<tr>
+				<th>1</th>
+				<th>가입인사</th>
+				<th>2024-01-23</th>
+				<th><button class="btn-del">삭제</button></th>
+			</tr>
+		</tbody>
+	</table>
+	<script>
+		let table = document.querySelector("table");
+		// 테이블요소.rows = tr요소들
+		let rows = table.rows;
+		console.log(rows);
+
+		// 테이블요소.tBodies = tbody태그 요소를 배열로 반환
+		let tBodies = table.tBodies;
+		console.log(tBodies);
+		let tbodyRows = tBodies[0].rows;
+		console.log(tbodyRows);
+		let tr = tbodyRows[0];
+		console.log(tr);
+
+		// tr태그 안에 있는 th/td를 배열로 반환
+		let tds = tr.cells;
+		console.log(tds);
+	</script>
+</body>
+</html>
