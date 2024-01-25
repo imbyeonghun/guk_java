@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jquery_사이드메뉴2</title>
+	<script src="../../static/jquery.js"></script>
+	<style>
+		*{margin: 0; padding: 0;}
+		.box{
+			top: 0;
+			left: -2px;
+			width: 200px;
+			height: 200px;
+			position: absolute;
+			border: 1px solid black;
+			margin-left: -200px;
+		}
+		.btn, .btn-x{
+			width: 50px;
+			height: 50px;
+			position: absolute; 
+			top: 0;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+	<button class="btn">버튼</button>
+	<div class="box">
+		<button class="btn-x">x</button>
+	</div>
+	<script>
+		/*
+		버튼 1개와 박스를 만들어서 버튼을 클릭하면 박스가 나타나도록 코드 작성
+		박스에 x버튼을 추가해서 x버튼을 클릭하면 박스가 사라지도록 코드 작성
+		*/
+
+		$(".btn").click(function(){
+			$(".box").show();
+			if(!$(".box").is(":animated")){
+				$(".box").animate({"margin-left" : "+=202px"},1000);
+			}
+		});
+
+		$(".btn-x").click(function(){
+			$(".btn").show();
+			if(!$(".box").is(":animated")){
+				$(".box").animate({"margin-left" : "-=202px"},1000);
+			}
+		});
+	</script>
+</html>
