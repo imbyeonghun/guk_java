@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jquery_박스 교체</title>
+	<script src="../../static/jquery.js"></script>
+	<style>
+		.container{
+			max-width: 500px;
+			margin: 0 auto;
+		}
+		.box-group{
+			border: 3px solid black;
+			margin-bottom: 20px;
+		}
+		.box{
+			height: 400px;
+			display: none;
+		}
+		.btn-group{
+			display: flex;
+			justify-content: center;
+		}
+		.page-group{
+			margin: 0 10px;
+		}
+		.max-page{ font-weight: bold; }
+		.prev,.next{
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			border-width: 1px;
+			background-color: white;
+			cursor: pointer;
+		}
+		.prev:hover, .next:hover{
+			font-weight: bold;
+			background-color: aliceblue;
+		}
+		.box.select{
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="box-group">
+			<div class="box select">1</div>
+			<div class="box">2</div>
+			<div class="box">3</div>
+		</div>
+		<div class="btn-group">
+			<button class="prev"> &lt; </button>
+			<span class = "page-group">
+				<span class = "min-page">1</span> / <span class="max-page">3</span>
+			</span>
+			<button class="next"> &gt; </button>
+		</div>
+	</div>
+	<script>
+		/* 박스 1개와 그 밑에 이전,다음 버튼과 해당 페이지와 총 페이지수를 보여주는 코드 */
+		$(".next").click(function(){
+			// .select요소를 선택
+			let select = $(".select");
+			// .select요소의 다음 요소가 있으면
+			console.log(select.next())
+			if(select.next().length){
+				// 다음 요소에 select 클래스를 추가
+				select.next().addClass("select");
+			}else{	// 없으면 
+				// 처음 요소에 select 클래스를 추가
+				$(".box").first().addClass("select");
+			}
+			// 기존에 있던 select 클래스를 제거
+			select.removeClass("select");
+			drawPage();
+		});
+
+		$(".prev").click(function(){
+			// .select요소를 선택
+			let select = $(".select");
+			// .select요소의 다음 요소가 있으면
+			if(select.prev().length){
+				// 다음 요소에 select 클래스를 추가
+				select.prev().addClass("select");
+			}else{
+				// 처음 요소에 select 클래스를 추가
+				$(".box").last().addClass("select");
+			}
+			// 기존에 있던 select 클래스를 제거
+			select.removeClass("select");
+			drawPage();
+		});
+
+		function drawPage(){
+			/*
+			index() : 부모 요소를 기준으로 선택요소가 몇번지인지 알려주는 메서드
+						0 부터 시작
+			*/
+			let index = $(".select").index();
+			$(".min-page").text(index+1);
+		}
+	</script>
+</body>
+</html>
