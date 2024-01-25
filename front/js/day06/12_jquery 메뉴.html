@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jquery 메뉴</title>
+	<script src="../../static/jquery.js"></script>
+	<style>
+		/*
+		.container{
+			width: 500px;
+			height: 50px;
+			text-align: center;
+			margin-bottom: 10px;
+			border: 1px solid black;
+		}
+		.btn{
+			width: 50px;
+			height: 40px;
+			margin-bottom: 10px;
+		}
+		.boxes{
+			width: 500px;
+			height: 300px;
+			border: 1px solid black;
+		}
+		.box{
+			width: 100%;
+			height: 100%;
+		}
+		.box1{background-color: yellow;}
+		.box2{background-color: red;}
+		.box3{background-color: blue;}
+		*/
+		.tab-group{
+			margin: 0; padding: 0;
+			display: flex; list-style: none;
+		}
+		.tab{
+			width: 100%;
+			border: 3px solid black;
+		}
+		.tab+.tab{
+			margin-left: -3px;
+		}
+		.tab-link{
+			height: 50px; display: block; color: black;
+			cursor: pointer; font-size: 20px; line-height: 50px;
+			text-align: center; text-decoration: none;
+		}
+		.box-group{
+			margin-top: 10px; border: 3px solid black;
+		}
+		.box{
+			height: 500px; display: none;
+		}
+		.tab.select{
+			background-color: aquamarine;
+		}
+	</style>
+</head>
+<body>
+	<!-- 
+	<div class="container">
+		<button class="btn btn-x">x</button>
+		<button class="btn btn-y">y</button>
+		<button class="btn btn-z">z</button>
+	</div>
+	<div class="boxes">
+		<div class="box box1"></div>
+		<div class="box box2"></div>
+		<div class="box box3"></div>
+	</div>
+	<script>
+		hide();
+		$(".btn-x").click(function(){
+			hide();
+			$(".box1").show();
+		});
+
+		$(".btn-y").click(function(){
+			hide();
+			$(".box2").show();
+		});
+
+		$(".btn-z").click(function(){
+			hide();
+			$(".box3").show();
+		});
+
+		function hide(){
+			$(".box").hide();
+		}
+	</script>
+	 -->
+	 <div class="container">
+		<ul class="tab-group">
+			<li class="tab" data-target=".box:nth-of-type(1)">
+				<a href="javascript:void(0)" class="tab-link">메뉴1</a>
+			</li>
+			<li class="tab" data-target=".box:nth-of-type(2)">
+				<a href="javascript:void(0)" class="tab-link">메뉴2</a>
+			</li>
+			<li class="tab" data-target=".box:nth-of-type(3)">
+				<a href="javascript:void(0)" class="tab-link">메뉴3</a>
+			</li>
+		</ul>
+		<div class="box-group">
+			<div class="box">1</div>
+			<div class="box">2</div>
+			<div class="box">3</div>
+		</div>
+	 </div>
+	 <script>
+		$(".tab").click(function(){
+			$(".tab").removeClass("select");
+			$(this).addClass("select");
+			$(".box").hide();
+
+			// 아래 두 코드 결과는 동일
+			// let target = $(this).attr("data-target");
+			let target = $(this).data("target");
+
+			$(target).show();
+		});
+		$(".tab").first().click();
+	 </script>
+</body>
+</html>
