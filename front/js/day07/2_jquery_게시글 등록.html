@@ -97,17 +97,17 @@
 	<script>
 		display(list);
 
-		//제목 클릭시 이벤트 처리
+		// 제목 클릭시 이벤트 처리
 		$(document).on("click",".link", linkClick);
 
-		//버튼에 클릭 이벤트 등록
+		// 버튼에 클릭 이벤트 등록
 		$(".btn").click(btnClick);
-		//X버튼 클릭 이벤트
+
+		// X버튼 클릭 이벤트
 		$(".btn-close").click(function(){
 			$(".modal-box").hide();
 			display(list);
 		})
-
 		</script>
 </body>
 </html>
