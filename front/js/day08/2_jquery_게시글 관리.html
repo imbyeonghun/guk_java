@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jquery 게시글 관리</title>
+	<script src="../../static/jquery.js"></script>
+	<style>
+		.container{
+			max-width: 500px; margin: 0 auto;
+		}
+		.input-box{
+			margin-top: 10px;
+		}
+		.input-box>.input{
+			display: block; width: 100%; height: 30px;
+			border-radius: 5px; border: 1px solid black;
+			margin-top: 5px; padding-left: 10px; box-sizing: border-box;
+		}
+		.input-box>.text-area{
+			height: 200px;
+		}
+		.btn{
+			width: 100%; box-sizing: border-box; background-color: white;
+			border: 1px solid green; border-radius: 5px;
+			margin-top: 10px; height: 30px; line-height: 28px; display: block;
+			cursor: pointer;
+		}
+		[class^=error]{
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<!-- 
+		제목 : 필수항목 한글,영문,숫자,기호(.,!?), 최소 한글자,최대 50글자
+		작성자 : 필수항목 특수문자 x
+		내용 : 필수항목
+	-->
+	<form action="" class="container">
+		<h1>게시글 등록</h1>
+		<div class="input-box">
+			<label for="title" class="label">제목:</label>
+			<input type="text" name="title" id="title" class="input" placeholder="제목을 입력하세요." >
+			<label class="error-title"></label>
+		</div>
+		<div class="input-box">
+			<label for="writer" class="label">작성자:</label>
+			<input type="text" name="writer" id="writer" class="input" placeholder="작성자를 입력하세요." >
+			<label class="error-writer"></label>
+		</div>
+		<div class="input-box">
+			<label for="content" class="label">내용:</label>
+			<textarea name="content" id="content" rows="15" class="input text-area" placeholder="내용을 입력하세요."></textarea>
+			<label class="error-content"></label>
+		</div>
+		<button class="btn">등록</button>
+	</form>
+
+	<script>
+		/*
+		- 요소에 이벤트 등록
+		$(선택자).이벤트명(function(){
+
+		});
+
+		- 요소에 등록된 이벤트를 호출
+		$(선택자).이벤트명();
+		*/
+		$("form").submit(function(){
+			// 각 요소의 정규 표현식
+			let titleRegex = /^[a-zA-Z0-9ㄱ-힣?!,\.]{0,50}$/;	// 영문,숫자,한글,?!,.
+			let writerRegex = /^[a-zA-Z0-9]{0,8}$/;				// 영문,숫자
+
+			// 각 요소의 값을 가져옴
+			let titleValue = $("[name=title]").val();
+			let writerValue = $("[name=writer]").val();
+			let contentValue = $("[name=content]").val();
+			let submitOk = true;
+
+			// 경고 문구 초기화
+			$(".error-title").text("");
+			$(".error-writer").text("");
+			$(".error-content").text("");
+
+			// 제목 필수항목
+			if(!titleValue.trim().length){
+				$(".error-title").text("필수항목입니다.");
+				submitOk = false;
+			}
+			// 작성자 필수항목
+			if(!writerValue.trim().length){
+				$(".error-writer").text("필수항목입니다.");
+				submitOk = false;
+			}
+			// 내용 필수항목
+			if(!contentValue.trim().length){
+				$(".error-content").text("필수항목입니다.");
+				submitOk = false;
+			}
+
+			// 제목 유효성 검사
+			if(!titleRegex.test(titleValue.trim())){
+				$(".error-title").text("제목은 영문,한글,숫자,특수기호(.,!?)만 사용가능하며, 최대 50자까지 작성할 수 있습니다.");
+				submitOk = false;
+			}
+			// 작성자 유효성 검사
+			if(!writerRegex.test(writerValue.trim())){
+				$(".error-writer").text("작성자는 영문,숫자만 가능하며, 최대 8자까지 작성할 수 있습니다.");
+				submitOk = false;
+			}
+
+			// 데이터베이스에 전송할때도 공백을 제거
+			if(submitOk){
+				$("[name=title]").val(titleValue.trim());
+				$("[name=writer]").val(writerValue.trim());
+				$("[name=content]").val(contentValue.trim());
+			}
+
+			return submitOk;
+		});
+
+		/*
+		// 등록하려는 이벤트가 jquery 메서드로 등록되어 있지 않은 경우 사용
+		$("form").on("submit",function(){
+
+		});
+
+		// 동작으로 인해 추가된요소에 이벤트를 등록하는 경우
+		$(document).on("submit","fomr",function(){
+
+		});
+		*/
+	</script>
+</body>
+</html>
