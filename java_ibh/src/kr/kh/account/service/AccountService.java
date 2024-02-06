@@ -14,5 +14,11 @@ public interface AccountService {
 
 	List<Category> getCategoryList(@Param("ty_name") String type);
 
-	boolean insertItem(Item item, String type);
+	boolean insertItem(Item item);
+
+	List<Item> getitemListByDate(String date);
+
+	boolean updateItem(Item item);
+
+	boolean deleteItem(int it_num);
 }
