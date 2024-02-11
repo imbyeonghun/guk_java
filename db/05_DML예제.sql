@@ -7,7 +7,6 @@ insert into 테이블명() values();
 테이블명() 안에 들어가지 않은 속성은 null값이 들어감
 */
 use world;
-insert into `test`.`member`(id) values();
 
 use test;
 

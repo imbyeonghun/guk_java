@@ -1,3 +1,5 @@
+use university;
+
 # 컴퓨터 공학을 다니는 학생 정보를 조회 (O)
 select * from student where st_major = "컴퓨터공학";
 
@@ -83,6 +85,8 @@ where
 	pr_name = '김교수';
 
 # -----------------------------------------
+
+use shoppingmall;
 
 # 모든 제품을 조회 (O)
 select * from product;
