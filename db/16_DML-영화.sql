@@ -105,20 +105,18 @@ insert into seat(se_name, se_sc_num) values
 ('B1', 3),('B2', 3),
 ('C1', 3),('C2', 3);
 
-# 오류 발생시 해결 코드
-# set sql_safe_updates=0;
 # 극장 좌석 수정
 UPDATE theater 
 SET 
-    th_seat = 24
+    th_seat = 28
 WHERE
     th_name = 'CGV강남';
-    
 /* 서브 쿼리를 이용하여 CGV강남에 등록된 좌석수를 계산해서 영화관 전체 좌석수에 업데이트 하는 쿼리
 - 서브 쿼리로 A테이블을 업데이트할 때, 서브 쿼리에 A테이블을 단순 이용하면 업데이트가 되지 않음 
 - 이럴 때, A테이블이 아닌 A테이블을 조회한 결과를 이용하면 가능 
 - 서브쿼리가 select count(*) from A일 때, A 대신 
-  select count(*) from (select * from A) as 임시이름을 이용해야 한다 
+  select count(*) from (select * from A) as 임시이름 
+  을 이용해야 한다 
 */
 UPDATE theater 
 SET 
@@ -138,6 +136,7 @@ SET
 WHERE
     th_name = 'CGV강남';
 
+
 # CGV영등포에 상영관과 좌석을 추가하는 쿼리
 # 1관, 14좌석, 2관, 16좌석, 3관 10좌석, 4관 25좌석
 # 1관 : A1~A3, B1~B3, C1~C4, D1~D4
@@ -150,7 +149,7 @@ insert into screen(sc_name, sc_seat, sc_th_num) values
 (2, 16, 2),
 (3, 10, 2),
 (4, 15, 2);
-
+select * from screen;
 insert into seat(se_name, se_sc_num) values
 # CGV영등포 1관
 ('A1', 4),('A2', 4),('A3', 4),
@@ -174,7 +173,6 @@ insert into seat(se_name, se_sc_num) values
 ('C1',7),('C2',7),('C3',7),('C4',7),('C5',7),
 ('D1',7),('D2',7),('D3',7),('D4',7),('D5',7),
 ('E1',7),('E2',7),('E3',7),('E4',7),('E5',7);
-
 UPDATE theater 
 SET 
     th_seat = (SELECT 
@@ -193,17 +191,15 @@ SET
 WHERE
     th_name = 'CGV영등포';
 
-select * from theater;
-
 # 상영시간을 추가
 # CGV강남 1관 상영시간
 # 웡카 - 2월 9일 10:30, 13:00, 16:00, 18:10, 20:30
-# CGV강남 2관 상영시간
+ # CGV강남 2관 상영시간
 # 웡카 - 2월 9일 11:30, 14:00, 15:00, 19:10, 21:30
 # CGV강남 3관 상영시간
 # 웡카 - 2월 9일 12:20, 14:30, 17:30, 19:50
 
-insert into schedule values
+insert into schedule values 
 (null, "2024-02-09", "10:30", 1, 1, 1),
 (null, "2024-02-09", "13:00", 0, 1, 1),
 (null, "2024-02-09", "16:00", 0, 1, 1),
@@ -218,8 +214,7 @@ insert into schedule values
 (null, "2024-02-09", "14:30", 0, 3, 1),
 (null, "2024-02-09", "17:30", 0, 3, 1),
 (null, "2024-02-09", "19:50", 0, 3, 1);
-
-# 조조할인 적용(12시 이전)
+# 조조할인 적용(12시 이전) 
 UPDATE schedule 
 SET 
     sh_morning = 1
@@ -227,14 +222,34 @@ WHERE
     sh_time <= '12:00';
 
 # 기본 요금을 등록
-insert into price values(null,'성인',14000), (null, '청소년', 11200),
+insert into price values(null, '성인', 14000), (null, '청소년', 10000), 
 (null, '성인조조', 11200), (null, '청소년조조', 8000);
 
-# abc123 회원이 웡카를 예매했을 때 쿼리
-# CGV강남 1상영관 10:30 영활르 성인 2명, A1,A1를 예매
+# abc123 회원이 웡카를 예매했을 때 쿼리 
+# CGV강남 1상영관 10:30 영화를 성인 2명, A1, A2를 예매
 # ticketing 테이블에 데이터 추가
 insert into ticketing values(null, 2, 0, 11200*2, 1, 'abc123');
 
-# ticketing_list 테이블에 데이터 추가
+# ticketing_list 테이블에 데이터 추가 
 insert into ticketing_list(tl_ti_num, tl_se_num)
 values(1, 1), (1,2);
+
+# 영화관의 전체 좌석수와 전체 상영관 수를 현재 데이터를 기준으로 업데이트하는 쿼리 
+update theater 
+set
+	th_seat = (select sum(sc_seat) from screen where sc_th_num = 1),
+    th_screen = (select count(sc_num) from screen where sc_th_num = 1)
+where
+	th_num = 1;
+    
+# 폴킹 감독이 웡카 영화(1)에 감독으로 참여하는 쿼리
+INSERT INTO `join` 
+SELECT 1, '감독', 1, mp_num 
+FROM
+    movie_person
+        JOIN
+    `character` ON mp_ch_num = ch_num
+WHERE
+    ch_name = '폴킹' AND mp_role = '감독';
+
+    
