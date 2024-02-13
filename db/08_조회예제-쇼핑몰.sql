@@ -123,3 +123,62 @@ FROM
 WHERE
 	OR_STATE IS NULL OR OR_STATE NOT IN("환불", "반품")
 GROUP BY PR_CODE;
+
+
+# 카테고리별 등록된 제품 수를 조회하는 쿼리
+SELECT 
+    ca_name, if(COUNT(pr_ca_num) > 0, COUNT(pr_ca_num), '등록된 제품 없음') as '카테고리별 제품수'
+FROM
+    product
+        RIGHT JOIN
+    category ON pr_ca_num = ca_num
+GROUP BY ca_num;
+
+
+# 회원별 누적 주문 금액을 조회하는 쿼리
+SELECT 
+    me_id as '아이디', if(SUM(or_total_price) > 0, SUM(or_total_price), 0) as '누적 금액'
+FROM
+    `order`
+        right JOIN
+    member ON or_me_id = me_id
+GROUP BY me_id;
+
+
+# 회원별 등급을 조회하는 쿼리 등급은 기본이 브론즈, 누적금액이 5만원이상이면 실버, 누적 금액이 8만원이상이면 골드
+# case문을 활용
+SELECT 
+    me_id as '아이디',
+    case
+    when ifnull(SUM(or_total_price), 0) >= 80000 then '골드'
+    when ifnull(SUM(or_total_price), 0) >= 80000 then '실버'
+    else '브론즈'
+    end as '등급'
+FROM
+    `order`
+        right JOIN
+    member ON or_me_id = me_id
+GROUP BY me_id;
+
+
+# 제품 첨부파일을 추가한 후, 추가한 파일이 이미지인지 동영상인지 조회하는 쿼리
+SELECT 
+	CASE RIGHT(IM_FILE, 3)
+    WHEN 'JPG' THEN '이미지'
+    WHEN 'PNG' THEN '이미지'
+    WHEN 'MP4' THEN '영상'
+    END AS 종류,
+    IM_FILE
+FROM IMAGE;
+
+
+
+
+
+
+
+
+
+
+
+
