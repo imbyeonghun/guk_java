@@ -166,8 +166,6 @@ CREATE TABLE `price` (
 	`pr_price`	int	NOT NULL
 );
 
-DROP TABLE IF EXISTS `price`;
-
 ALTER TABLE `character` ADD CONSTRAINT `FK_nation_TO_character_1` FOREIGN KEY (
 	`ch_na_name`
 )
