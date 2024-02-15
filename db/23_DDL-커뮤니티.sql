@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS `community`;
-CREATE DATABASE IF NOT EXISTS `community`;
-USE community;
+DROP DATABASE IF EXISTS `community2`;
+CREATE DATABASE IF NOT EXISTS `community2`;
+USE community2;
 
 DROP TABLE IF EXISTS `member`;
 
@@ -71,7 +71,7 @@ DROP TABLE IF EXISTS `report`;
 CREATE TABLE `report` (
     `rp_num` INT PRIMARY KEY AUTO_INCREMENT,
     `rp_me_id` VARCHAR(13) NOT NULL,
-    `rp_tr_name` VARCHAR(15) NOT NULL,
+    `rp_rt_name` VARCHAR(15) NOT NULL,
     `rp_table` VARCHAR(10) NOT NULL,
     `rp_content` TEXT NOT NULL,
     `rp_state` VARCHAR(5) NOT NULL DEFAULT '신고접수',
@@ -148,7 +148,7 @@ REFERENCES `member` (
 );
 
 ALTER TABLE `report` ADD CONSTRAINT `FK_report_type_TO_report_1` FOREIGN KEY (
-	`rp_tr_name`
+	`rp_rt_name`
 )
 REFERENCES `report_type` (
 	`tr_name`

@@ -1,4 +1,4 @@
-USE COMMUNITY;
+USE COMMUNITY2;
 
 # 공지 커뮤니티에 등록된 모든 게시글을 조회하는 쿼리
 SELECT 

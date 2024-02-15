@@ -1,4 +1,4 @@
-USE COMMUNITY;
+USE COMMUNITY2;
 
 # 회원 상태를 추가하는 쿼리(이용 중, 기간 정지, 영구 정지, 탈퇴)
 INSERT INTO MEMBER_STATE(MS_STATE) VALUES('이용중'), ('기간정지'), ('영구정지'), ('탈퇴');
