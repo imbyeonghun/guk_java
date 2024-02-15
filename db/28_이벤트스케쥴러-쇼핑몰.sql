@@ -1,0 +1,27 @@
+# event를 시작하는 모든 변수들을 조회
+SHOW VARIABLES LIKE 'event%';
+
+# 해당 변수가 off일 경우 on으로 변경
+# SET GLOBAL event_scheduler = ON;
+
+USE SHOPPINGMALL;
+
+# 1초마다 기간이 지난 인증번호를 삭제하도록 이벤트를 등록
+CREATE EVENT DELETE_CERTIFICATION
+ON SCHEDULE EVERY 1 SECOND
+DO
+	DELETE FROM CERTIFICATION WHERE CE_LIMIT <= NOW();
+
+# 등록된 이벤트들의 정보를 조회
+SELECT * FROM information_schema.EVENTS;
+
+# 해당 이벤트명을 가진 이벤트 삭제
+DROP EVENT DELETE_CERTIFICATION;
+
+# 지정 시간에 시작해서 한번만 실행하고, 이벤트가 삭제됨 : NOT PRESERVE
+CREATE EVENT DELETE_CERTIFICATION
+ON SCHEDULE
+AT '2024-02-15 09:45:00'
+ON COMPLETION NOT PRESERVE
+DO
+	DELETE FROM CERTIFICATION WHERE CE_LIMIT <= NOW();
