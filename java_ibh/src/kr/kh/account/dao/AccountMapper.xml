@@ -39,4 +39,16 @@
 		FROM item 
 		WHERE it_num = #{it_num}
 	</delete>
+	<select id="selectItemListSearch" resultType="kr.kh.account.model.vo.Item">
+		SELECT 
+		    item.*, ca_ty_name AS it_ty_name, ca_name AS it_ca_name
+		FROM
+		    item
+		        JOIN
+		    item category ON ca_num = it_ca_num
+		WHERE
+		    it_date LIKE CONCAT(#{cri.search}, '%')
+		ORDER BY it_date DESC
+		LIMIT #{cri.pageStart}, #{cri.perPageNum}
+	</select>
 </mapper>

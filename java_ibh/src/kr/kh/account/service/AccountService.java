@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import kr.kh.account.model.vo.Category;
 import kr.kh.account.model.vo.Item;
 import kr.kh.account.model.vo.Type;
+import kr.kh.account.pagination.Criteria;
 
 public interface AccountService {
 
@@ -21,4 +22,6 @@ public interface AccountService {
 	boolean updateItem(Item item);
 
 	boolean deleteItem(int it_num);
+
+	List<Item> getitemListByDate(Criteria cri);
 }
