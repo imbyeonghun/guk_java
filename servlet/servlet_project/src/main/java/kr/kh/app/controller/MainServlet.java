@@ -19,9 +19,7 @@ public class MainServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String data = request.getParameter("data");
-		System.out.println("전송 받은 데이터 : " + data);
 		String id = request.getParameter("id");
-		System.out.println("전송 받은 ID : " + id);
 		
 		// 화면으로 나이를 전송
 		int age = 30;
