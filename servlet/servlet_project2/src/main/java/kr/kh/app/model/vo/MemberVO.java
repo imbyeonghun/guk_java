@@ -22,4 +22,5 @@ public class MemberVO {
 		this.me_email = me_email;
 		this.me_ms_state = me_ms_state;
 	}
+
 }
