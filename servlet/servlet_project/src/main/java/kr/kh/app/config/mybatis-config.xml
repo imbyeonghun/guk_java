@@ -8,7 +8,7 @@
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
         <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/community2"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/community"/>
         <property name="username" value="root"/>
         <property name="password" value="root"/>
       </dataSource>
@@ -16,5 +16,6 @@
   </environments>
   <mappers>
     <mapper resource="kr/kh/app/dao/MemberMapper.xml"/>
+    <mapper resource="kr/kh/app/dao/BoardMapper.xml"/>
   </mappers>
 </configuration>

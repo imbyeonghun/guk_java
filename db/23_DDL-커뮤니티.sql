@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS `community2`;
-CREATE DATABASE IF NOT EXISTS `community2`;
-USE community2;
+DROP DATABASE IF EXISTS `community`;
+CREATE DATABASE IF NOT EXISTS `community`;
+USE community;
 
 DROP TABLE IF EXISTS `member`;
 

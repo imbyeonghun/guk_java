@@ -1,8 +1,8 @@
-drop database if exists community;
+drop database if exists community2;
 
-create database if not exists community;
+create database if not exists community2;
 
-use community;
+use community2;
 
 DROP TABLE IF EXISTS `member`;
 
@@ -162,5 +162,5 @@ insert into `post`(po_title, po_content, po_me_id, po_bo_num) values('ㅋㅋㅋ'
 insert into comment(co_content, co_me_id, co_po_num) values('좋습니다', 'jkh123', 1);
 insert into comment(co_content, co_me_id, co_po_num) values('좋아요', 'lbh123', 1);
 
-create user 'stajun'@'192.168.30.199' identified by 'abc';
-grant all privileges on community.* to 'stajun'@'192.168.30.199';
+#create user 'stajun'@'192.168.30.199' identified by 'abc';
+#grant all privileges on community.* to 'stajun'@'192.168.30.199';
