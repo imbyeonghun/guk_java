@@ -8,6 +8,6 @@
 		values(#{member.me_id},#{member.me_pw},#{member.me_email},#{member.me_ms_state})
 	</insert>
 	<select id="selectMember" resultType="kr.kh.app.model.vo.MemberVO">
-		select me_id, me_pw from member where me_id = #{me_id};
+		select * from member where me_id = #{id}
 	</select>
 </mapper>

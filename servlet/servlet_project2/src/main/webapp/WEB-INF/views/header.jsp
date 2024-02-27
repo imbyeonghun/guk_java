@@ -16,7 +16,7 @@
 		</button>
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			<ul class="navbar-nav">
-				<c:if test="${user == null }">
+				<c:if test="${user == null}">
 					<li class="nav-item">
 						<a class="nav-link" href="<c:url value="/signup"/>">회원가입</a>
 					</li>
