@@ -1,6 +1,7 @@
 package kr.kh.app.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.kh.app.model.vo.BoardVO;
+import kr.kh.app.model.vo.CommunityVO;
 import kr.kh.app.model.vo.MemberVO;
 import kr.kh.app.service.BoardService;
 import kr.kh.app.service.BoardServiceImp;
@@ -31,6 +33,10 @@ public class BoardInsertListServlet extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/views/message.jsp").forward(request, response);
 		}
 		else {	// 있으면 게시글 등록 화면을 전송
+			// 서비스에게 게시판 리스트를 가져오라고 시킴 : getCommuinity
+			ArrayList<CommunityVO> list = boardService.getCommunity();
+			// 화면에 게시판 리스트를 보냄
+			request.setAttribute("list", list);
 			request.getRequestDispatcher("/WEB-INF/views/board/insert.jsp").forward(request, response);
 		}
 	}
@@ -55,7 +61,7 @@ public class BoardInsertListServlet extends HttpServlet {
 		// 작성자에 회원 아이디를 저장
 		String bo_me_id = user.getMe_id();
 		// 게시판 번호는 1번으로 저장
-		int bo_co_num = 1;
+		int bo_co_num = Integer.parseInt(request.getParameter("community"));
 		// 제목, 내용, 작성자, 게시판 번호를 이용하여 게시글 객체를 생성
 		BoardVO board = new BoardVO(bo_co_num, bo_me_id, title, content);
 		// 해당 객체를 서비스에게 주면서 등록하라고 시킴

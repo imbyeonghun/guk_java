@@ -24,4 +24,7 @@
 		insert into board(bo_co_num, bo_me_id, bo_title, bo_content)
 		values(#{board.bo_co_num},#{board.bo_me_id},#{board.bo_title},#{board.bo_content})
 	</insert>
+	<select id="selectCommunityList" resultType="kr.kh.app.model.vo.CommunityVO">
+		select * from community
+	</select>
 </mapper>
