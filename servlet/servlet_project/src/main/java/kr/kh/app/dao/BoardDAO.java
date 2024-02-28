@@ -21,4 +21,6 @@ public interface BoardDAO {
 	BoardVO selectBoard(@Param("num")int num);
 
 	boolean updateView(@Param("num")int num);
+
+	boolean deleteBoard(@Param("num")int num);
 }
