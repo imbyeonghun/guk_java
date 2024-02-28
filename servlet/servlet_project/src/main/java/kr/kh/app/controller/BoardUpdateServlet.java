@@ -70,7 +70,7 @@ public class BoardUpdateServlet extends HttpServlet {
 		int num , coummunity;
 		try {
 			num = Integer.parseInt(request.getParameter("num"));
-			coummunity = Integer.parseInt(request.getParameter("coummunity"));
+			coummunity = Integer.parseInt(request.getParameter("community"));
 		}catch(Exception e) {
 			num = 0;
 			coummunity = 0;
