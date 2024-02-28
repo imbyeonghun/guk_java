@@ -21,4 +21,12 @@ public class BoardVO {
 		this.bo_content = bo_content;
 		this.bo_me_id = me_id;
 	}
+
+	public BoardVO(int bo_num, String bo_title, String bo_content, int co_num) {
+		this.bo_num = bo_num;
+		this.bo_title = bo_title;
+		this.bo_content = bo_content;
+		this.bo_co_num = co_num;
+	}
+	
 }
