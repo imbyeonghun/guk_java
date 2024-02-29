@@ -22,6 +22,8 @@ public class BoardInsertServlet extends HttpServlet {
     private BoardService boardService = new BoardServiceImp();
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/* 			멤버필터가 처리해줌
+		 	해당 위치를 회원이 아니면 접근을 못하게 하는 코드
 		//게시글은 회원만 작성 가능하기 때문에 아래 작업을 진행
 		//로그인한 회원 정보를 가져옴 => 세션에서 user 정보를 가져옴  
 		HttpSession session = request.getSession();
@@ -31,7 +33,7 @@ public class BoardInsertServlet extends HttpServlet {
 		if(user == null) {
 			response.sendRedirect(request.getContextPath()+"/board/list");
 			return;
-		}
+		} */
 		
 		//게시판 전체를 가져옴
 		ArrayList<CommunityVO> list = boardService.getCommunityList();
@@ -44,10 +46,13 @@ public class BoardInsertServlet extends HttpServlet {
 		//로그인이 풀리면 게시글을 작성할 수 없게 해야하기 때문에 
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		/* 			멤버필터가 처리해줌
 		if(user == null) {
 			response.sendRedirect(request.getContextPath()+"/board/list");
 			return;
 		}
+		*/
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String writer = user.getMe_id();
