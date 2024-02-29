@@ -34,7 +34,7 @@ public class BoardServiceImp implements BoardService {
 	public ArrayList<BoardVO> getBoardList(Criteria cri) {
 		// 현재 페이지 정보 null처리
 		if(cri == null) {
-			return null;
+			cri = new Criteria();
 		}
 		return boardDao.selectBoardList(cri);
 	}
@@ -62,5 +62,13 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public ArrayList<CommunityVO> getCommunity() {
 		return boardDao.selectCommunityList();
+	}
+
+	@Override
+	public int getTotalCount(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return boardDao.selectTotalCount(cri);
 	}
 }
