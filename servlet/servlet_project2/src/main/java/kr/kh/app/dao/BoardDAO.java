@@ -10,11 +10,18 @@ import kr.kh.app.pagination.Criteria;
 
 public interface BoardDAO {
 
-	ArrayList<BoardVO> selectBoardList(@Param("cri") Criteria cri);
+	ArrayList<BoardVO> selectBoardList(@Param("cri")Criteria cri);
 
-	boolean insertBoard(@Param("board") BoardVO board);
+	boolean insertBoard(@Param("board")BoardVO board);
 
 	ArrayList<CommunityVO> selectCommunityList();
 
-	int selectTotalCount(@Param("cri") Criteria cri);
+	int selectTotalCount(@Param("cri")Criteria cri);
+
+	boolean updateView(@Param("num")int num);
+
+	BoardVO selectBoard(@Param("num")int num);
+
+	boolean deleteBoard(@Param("num")int num);
+
 }

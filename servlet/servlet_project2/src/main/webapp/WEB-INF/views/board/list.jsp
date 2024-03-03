@@ -13,20 +13,20 @@
 	<jsp:include page="/WEB-INF/views/header.jsp"/>
 	<div class="container">
 		<!-- 서버에서 보낸 데이터를 c:forEach를 이용하여 화면에 출력 -->
-		<!-- 서버에서 보낸 게시글 리스트를 간단하게 출력 -->
 		<h1>게시글 리스트</h1>
 		<!-- 
-			form태그를 이용하여 검색창을 추가
-			form태그의 action을 board/list로 지정
-			타입의 name을 type으로 지정 => criteria에 type으로 되아있어서
-			검색어의 name을 search로 지정
-		-->
+		form태그를 이용하여 검색창을 추가
+		form태그의 action을 /board/list로 지정
+		타입의 name을 type으로 지정. 왜? Criteria에 type으로 되어 있어서
+		검색어의 name을 search로 지정. 
+		 -->
 		<form action="<c:url value="/board/list"/>">
 			<div class="input-group">
+				
 				<select class="form-control" name="type">
 					<option value="all" <c:if test='${pm.cri.type == "all"}'>selected</c:if>>전체</option>
-					<option value="bo_title" <c:if test='${pm.cri.type == "all"}'>selected</c:if>>제목</option>
-					<option value="bo_me_id" <c:if test='${pm.cri.type == "all"}'>selected</c:if>>작성자</option>
+					<option value="bo_title" <c:if test='${pm.cri.type == "bo_title"}'>selected</c:if>>제목</option>
+					<option value="bo_me_id" <c:if test='${pm.cri.type == "bo_me_id"}'>selected</c:if>>작성자</option>
 				</select>
 				<input type="text" class="form-control" placeholder="검색어" name="search" value="${pm.cri.search}">
 				<button class="btn btn-outline-success">검색</button>
@@ -43,12 +43,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items = "${boardList}" var="board">
+				<c:forEach items="${boardList}" var="board">
 					<tr>
 						<td>${board.bo_num}</td>
 						<td>${board.community.co_name}</td>
 						<td>
-							<a href="<c:url value=""/>">${board.bo_title}</a>
+							<a href="<c:url value="/board/detail?num=${board.bo_num}"/>">${board.bo_title}</a>
 						</td>
 						<td>
 							<a href="<c:url value=""/>">${board.bo_me_id}</a>
@@ -58,34 +58,34 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<!-- 서버에서 보낸 pageMaker객체를 이용하여 페이지네이션 구성 -->
+		<!-- 서버에서 보낸 PageMaker객체를 이용하여 페이지네이션 구성  -->
 		<ul class="pagination justify-content-center">
 			<c:if test="${pm.prev}">
 				<li class="page-item">
 					<c:url var="url" value="/board/list">
-						<c:param name="page" value="${pm.startPage-1}"/>
-						<c:param name="search" value="${pm.cri.search}"/>
-						<c:param name="type" value="${pm.cri.type}"/>
+						<c:param name="page" value="${pm.startPage-1 }"/>
+						<c:param name="search" value="${pm.cri.search }"/>
+						<c:param name="type" value="${pm.cri.type }"/>
 					</c:url>
 					<a class="page-link" href="${url}">이전</a>
 				</li>
 			</c:if>
-			<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+			<c:forEach begin="${pm.startPage}" end="${pm.endPage }" var="i">
 				<li class="page-item <c:if test="${pm.cri.page == i}">active</c:if>">
 					<c:url var="url" value="/board/list">
 						<c:param name="page" value="${i}"/>
-						<c:param name="search" value="${pm.cri.search}"/>
-						<c:param name="type" value="${pm.cri.type}"/>
+						<c:param name="search" value="${pm.cri.search }"/>
+						<c:param name="type" value="${pm.cri.type }"/>
 					</c:url>
 					<a class="page-link" href="${url}">${i}</a>
 				</li>
 			</c:forEach>
-			<c:if test="${pm.next}">
+			<c:if test="${pm.next }">
 				<li class="page-item">
 					<c:url var="url" value="/board/list">
-						<c:param name="page" value="${pm.endPage+1}"/>
-						<c:param name="search" value="${pm.cri.search}"/>
-						<c:param name="type" value="${pm.cri.type}"/>
+						<c:param name="page" value="${pm.endPage+1 }"/>
+						<c:param name="search" value="${pm.cri.search }"/>
+						<c:param name="type" value="${pm.cri.type }"/>
 					</c:url>
 					<a class="page-link" href="${url}">다음</a>
 				</li>
