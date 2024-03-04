@@ -1,10 +1,6 @@
 package kr.kh.app.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -21,7 +17,6 @@ import kr.kh.app.model.vo.CommunityVO;
 import kr.kh.app.model.vo.MemberVO;
 import kr.kh.app.service.BoardService;
 import kr.kh.app.service.BoardServiceImp;
-import kr.kh.app.utils.FileUploadUtils;
 
 @WebServlet("/board/insert")
 @MultipartConfig(	// 한번에 올릴 수 있는 최대 용량 지정
@@ -74,12 +69,9 @@ public class BoardInsertServlet extends HttpServlet {
 		
 		// 첨부파일을 가져옴
 		Part filePart = request.getPart("file");
-		// 파일을 저장할 폴더를 지정
-		String uploadPath = "D:\\uploads";
-		FileUploadUtils.upload(uploadPath, filePart);
 		
 		//서비스에게 게시글을 주면서 등록하라고 시킴
-		if(boardService.insertBoard(board)) {
+		if(boardService.insertBoard(board,filePart)) {
 			response.sendRedirect(request.getContextPath()+"/board/list");
 		}else {
 			response.sendRedirect(request.getContextPath()+"/board/insert");
