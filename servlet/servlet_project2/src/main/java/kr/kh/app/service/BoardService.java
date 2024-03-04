@@ -23,4 +23,5 @@ public interface BoardService {
 
 	boolean deleteBoard(int num, MemberVO user);
 
+	boolean updateBoard(MemberVO user, BoardVO board);
 }

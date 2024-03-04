@@ -52,6 +52,7 @@ public class BoardServiceImp implements BoardService {
 		}
 		return boardDao.insertBoard(board);
 	}
+	
 	//문자열이 null이거나 빈 문자열이면 false, 아니면 true를 반환하는 메서드
 	public boolean checkString(String str) {
 		if(str == null || str.length() == 0) {
@@ -96,5 +97,26 @@ public class BoardServiceImp implements BoardService {
 		}
 		//게시글을 삭제 요청
 		return boardDao.deleteBoard(num);
+	}
+
+	@Override
+	public boolean updateBoard(MemberVO user, BoardVO board) {
+		// 게시글 null 체크
+		if( board == null || 
+			!checkString(board.getBo_title()) || 
+			!checkString(board.getBo_content())) {
+			return false;
+		}
+		// 회원 null 체크
+		if(user == null) {
+			return false;
+		}
+		// 게시글이 없거나 게시글 작성자가 회원이 아니면 false를 리턴
+		BoardVO board2 = boardDao.selectBoard(board.getBo_num());
+		if(board2 == null || !user.getMe_id().equals(board2.getBo_me_id())) {
+			return false;
+		}
+		// 서비스에게 게시글을 주면서 수정하라고 요청
+		return boardDao.updateBoard(board);
 	}	
 }
