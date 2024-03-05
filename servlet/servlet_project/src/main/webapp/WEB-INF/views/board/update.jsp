@@ -12,7 +12,8 @@
 <body>
 	<jsp:include page="/WEB-INF/views/header.jsp"/>
 	<div class="container">
-		<form action="<c:url value="/board/update"/>" method="post">
+	<!-- enctype="multipart/form-data" 이 있어야 첨부파일을 보낼 수 있음 -->
+		<form action="<c:url value="/board/update"/>" method="post" enctype="multipart/form-data">
 			<h1>게시글 수정</h1>
 			<input type="hidden" name="num" value="${board.bo_num}">
 			<div class="mb-3 mt-3">
@@ -35,8 +36,38 @@
 			    <label for="content" class="form-label">내용:</label>
 			    <textarea rows="10" class="form-control" id="content" name="content" placeholder="내용">${board.bo_content}</textarea>
 		  	</div>
+		  	<div class="mb-3 mt-3" id="attachment">
+			    <label for="content" class="form-label">첨부파일:</label>
+			    <c:choose>
+			    	<c:when test="${file != null}">
+			    		<span class="form-control">${file.fi_ori_name}<a id="btnDel" data-target="${file.fi_num}">X</a></span>
+			    	</c:when>
+			    	<c:otherwise>
+			    		<input type="file" class="form-control" name="file">
+			    	</c:otherwise>
+			    </c:choose>
+		  	</div>
 		  	<button class="btn btn-outline-warning col-12">글 수정</button>
 	  	</form>
 	</div>
+<script type="text/javascript">
+	let btnDel = document.querySelector("#btnDel");
+	let attachment = document.querySelector("#attachment");
+	btnDel.onclick = function(e){
+		e.preventDefault();	// a태그의 링크 기능을 막아줌
+		// input hidden으로 삭제할 첨부파일 번호를 추가
+		let num = this.getAttribute("data-target");
+		let str = `<input type="hidden" name="fi_num" value="\${num}">`;
+		attachment.innerHTML += str;
+		//span태그를 삭제
+		let span = attachment.querySelector("span.form-control");
+		attachment.removeChild(span);
+		
+		// file input 추가
+		let input = `<input type="file" name="file" class="form-control">`;
+		attachment.innerHTML += input;
+		
+	}
+</script>
 </body>
 </html>

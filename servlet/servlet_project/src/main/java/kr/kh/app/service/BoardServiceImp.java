@@ -39,7 +39,7 @@ public class BoardServiceImp implements BoardService{
 	}
 
 	@Override
-	public boolean insertBoard(BoardVO board, Part filePart) {
+	public boolean insertBoard(BoardVO board, ArrayList<Part> partList) {
 		if( board == null || 
 			!checkString(board.getBo_content()) || 
 			!checkString(board.getBo_title())) {
@@ -55,8 +55,10 @@ public class BoardServiceImp implements BoardService{
 		if(!res) {
 			return false;
 		}
-		// 있으면 업로드 작업
-		uploadFile(filePart,board.getBo_num());
+		for(Part filePart : partList) {
+			// 있으면 업로드 작업
+			uploadFile(filePart,board.getBo_num());
+		}
 		return res;
 	}
 
@@ -115,7 +117,7 @@ public class BoardServiceImp implements BoardService{
 	}
 
 	@Override
-	public boolean updateBoard(BoardVO board, MemberVO user) {
+	public boolean updateBoard(BoardVO board, MemberVO user, int fi_num, Part file) {
 		if(user == null || user.getMe_id() == null) {
 			return false;
 		}
@@ -130,6 +132,16 @@ public class BoardServiceImp implements BoardService{
 		if(dbBoard == null || !dbBoard.getBo_me_id().equals(user.getMe_id())) {
 			return false;
 		}
+		
+		// 첨부파일 추가
+		uploadFile(file, board.getBo_num());
+		
+		// 원래 첨부파일 삭제
+		// 1. 첨부파일 번호로 첨부파일 조회
+		// 2. 가져온 첨부파일을 삭제
+		FileVO fileVo = boardDao.selectFile(fi_num);
+		deleteFile(fileVo);
+		
 		// 같으면 게시글 수정
 		return boardDao.updateBoard(board);
 	}
@@ -175,12 +187,4 @@ public class BoardServiceImp implements BoardService{
 		}
 		boardDao.deleteFile(fileVo.getFi_num());
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 }
