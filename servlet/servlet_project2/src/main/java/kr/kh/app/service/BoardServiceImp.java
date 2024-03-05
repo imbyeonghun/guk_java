@@ -159,4 +159,9 @@ public class BoardServiceImp implements BoardService {
 		FileVO file = new FileVO(bo_num, fi_name, fi_ori_name);
 		boardDao.insertFile(file);
 	}
+
+	@Override
+	public ArrayList<FileVO> getFile(int num) {
+		return boardDao.selectFileByBoNum(num);
+	}
 }

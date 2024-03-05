@@ -1,6 +1,7 @@
 package kr.kh.app.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.kh.app.model.vo.BoardVO;
+import kr.kh.app.model.vo.FileVO;
 import kr.kh.app.service.BoardService;
 import kr.kh.app.service.BoardServiceImp;
 
@@ -32,7 +34,12 @@ public class BoardDetailServlet extends HttpServlet {
     	BoardVO board = boardService.getBoard(num);
     	//화면에 게시글을 전송 
     	request.setAttribute("board", board);
+
+    	// 서비스에게 게시글 번호가 num인 파일을 가져오라고 요청
+    	ArrayList<FileVO> fileList = boardService.getFile(num);
+    	// 화면에 파일을 전송
+    	request.setAttribute("fileList", fileList);
+    	
     	request.getRequestDispatcher("/WEB-INF/views/board/detail.jsp").forward(request, response);
 	}
-
 }

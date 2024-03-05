@@ -28,4 +28,6 @@ public interface BoardDAO {
 	boolean updateBoard(@Param("board")BoardVO board);
 
 	void insertFile(@Param("file")FileVO file);
+
+	ArrayList<FileVO> selectFileByBoNum(@Param("num")int num);
 }
