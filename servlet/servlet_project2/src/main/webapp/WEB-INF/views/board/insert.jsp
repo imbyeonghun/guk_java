@@ -12,7 +12,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/header.jsp"/>
 	<div class="container">
-		<form action="<c:url value="/board/insert"/>" method="post">
+		<form action="<c:url value="/board/insert"/>" method="post" enctype="multipart/form-data">
 			<h1>게시글 등록</h1>
 			<div class="mb-3 mt-3">
 				<label for="community" class="form-label">게시판</label>
@@ -29,6 +29,12 @@
 			<div class="mb-3 mt-3">
 				<label for="content">내용</label>
 				<textarea rows="5" class="form-control" id="content" placeholder="내용" name="content"></textarea>
+			</div>
+			<div class="mb-3 mt-3">
+				<label class="form-label">첨부파일</label>
+				<input type="file" class="form-control" name="file">
+				<input type="file" class="form-control" name="file">
+				<input type="file" class="form-control" name="file">
 			</div>
 			<button type="submit" class="btn btn-outline-success col-12">등록</button>
 		</form>

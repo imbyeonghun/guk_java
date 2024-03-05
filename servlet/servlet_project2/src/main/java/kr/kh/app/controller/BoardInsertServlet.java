@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommunityVO;
@@ -16,6 +18,11 @@ import kr.kh.app.service.BoardService;
 import kr.kh.app.service.BoardServiceImp;
 
 @WebServlet("/board/insert")
+@MultipartConfig(	// 한번에 올릴 수 있는 최대 용량 지정
+		maxFileSize = 1024 * 1024 * 10, // 10MB
+		maxRequestSize = 1024 * 1024 * 10 * 3,	// 10MB짜리 파일 최대 3개
+		fileSizeThreshold = 1024 * 1024	// 1MB : 파일 업로드 시 메모리에 저장되는 임시 파일 크기
+)
 public class BoardInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -38,13 +45,15 @@ public class BoardInsertServlet extends HttpServlet {
 		//회원 정보가 있으면
 		//작성자에 회원 아이디를 저장
 		String writer = user.getMe_id();
-		//게시판 번호는 1번으로 저장
 		int co_num = Integer.parseInt(request.getParameter("community"));
 		//제목, 내용, 작성자, 게시판 번호를 이용하여 게시글 객체를 생성
 		BoardVO board = new BoardVO(title, content, writer, co_num);
+
+		// 파일을 가져옴
+		ArrayList<Part> partList = (ArrayList<Part>) request.getParts();
+		
 		//서비스에게 게시글 객체를 주면서 등록하라고 시킴
-		System.out.println(board);
-		boolean res = boardService.insertBoard(board);
+		boolean res = boardService.insertBoard(board, partList);
 		//등록을 하면 화면에 msg로 게시글을 등록했습니다라고 전송
 		if(res) {
 			request.setAttribute("msg", "게시글을 등록했습니다.");
@@ -57,7 +66,5 @@ public class BoardInsertServlet extends HttpServlet {
 		request.setAttribute("url", "board/list");
 		//message.jsp를 전송
 		request.getRequestDispatcher("/WEB-INF/views/message.jsp").forward(request, response);
-		
 	}
-
 }
