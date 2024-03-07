@@ -28,7 +28,13 @@ public class RecommendServlet extends HttpServlet {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-
+		
+		// 서버가 클라이언트에서 요청한 결과를 전송할 때
+		// 보내지는 정보 중 content의 타입을 지정
+		// text/html : HTML로 출력
+		// text/plain : 일반 TEXT로 출력
+		// image/gif : 이미지 GIF로 출력
+		// image/jpeg : 이미지 JPG, JPEG로 출력
 		response.setContentType("text/plain");
 
 		// 회원 정보를 가져옴
