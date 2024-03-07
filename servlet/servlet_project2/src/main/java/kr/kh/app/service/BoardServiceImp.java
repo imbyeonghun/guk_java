@@ -17,6 +17,7 @@ import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommunityVO;
 import kr.kh.app.model.vo.FileVO;
 import kr.kh.app.model.vo.MemberVO;
+import kr.kh.app.model.vo.RecommendVO;
 import kr.kh.app.pagination.Criteria;
 import kr.kh.app.utils.FileUploadUtils;
 
@@ -196,5 +197,41 @@ public class BoardServiceImp implements BoardService {
 		FileUploadUtils.deleteFile(fileName);
 		boardDao.deleteFile(file.getFi_num());
 	}
-	
+
+	@Override
+	public int recommend(int num, int state, String me_id) {
+		// state 값이 잘 못된 경우
+		switch (state) {
+		case -1, 1: break;
+		default:
+			throw new RuntimeException();
+		}
+		// 회원이 게시글에 추천한 내역이 있는지 확인 => 있으면 수정, 없으면 추가
+		// 회원정보, 게시글 번호, 추천상태를 주고 조회
+		RecommendVO recommend = boardDao.selectRecommend(num, me_id);
+		// 없으면 새로 생성
+		if(recommend == null) {
+			recommend = new RecommendVO(me_id, num, state);
+			boardDao.insertRecommend(recommend);
+			return state;
+		}
+		
+		// 조회 결과가 있으면 전달 받은 상태와 다르면 변경
+		if(recommend.getRe_state() == state) {
+			// 같으면 취소
+			recommend.setRe_state(0);
+		}else {
+			recommend.setRe_state(state);
+		}
+		boardDao.updateRecommend(recommend);
+		return recommend.getRe_state();
+	}
+
+	@Override
+	public RecommendVO getRecommend(int num, MemberVO user) {
+		if(user == null) {
+			return null;
+		}
+		return boardDao.selectRecommend(num, user.getMe_id());
+	}
 }
