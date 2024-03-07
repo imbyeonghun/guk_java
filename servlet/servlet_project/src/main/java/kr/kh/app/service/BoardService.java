@@ -29,4 +29,6 @@ public interface BoardService {
 	boolean updateBoard(BoardVO board, MemberVO user, ArrayList<Integer> nums, ArrayList<Part> fileList);
 
 	ArrayList<FileVO> getFile(int num);
+
+	int recommend(int bo_num, int state, MemberVO user);
 }
