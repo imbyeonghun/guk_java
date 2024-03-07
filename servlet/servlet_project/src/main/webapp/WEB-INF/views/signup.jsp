@@ -21,6 +21,9 @@
 			    <input type="text" class="form-control" id="id" placeholder="아이디" name="id">
 		  	</div>
 		  	<div class="mb-3 mt-3">
+			    <button type="button" id="idCheck" class="btn btn-outline-success col-12">아이디 중복 검사</button>
+		  	</div>
+		  	<div class="mb-3 mt-3">
 			    <label for="pw" class="form-label">비번:</label>
 			    <input type="password" class="form-control" id="pw" placeholder="비번" name="pw">
 		  	</div>
@@ -35,5 +38,38 @@
 			<button class="btn btn-outline-success col-12">회원가입</button>
 		</form>
 	</div>
+<script src="//code.jquery.com/jquery-3.6.1.js"></script>
+<script type="text/javascript">
+	let flag = false;
+	$("#idCheck").click(function(){
+		let id = $("[name=id]").val();
+		fetch(`<c:url value="/id/check"/>?id=\${id}`)
+		.then(response=>response.text())
+		.then(data=>{
+			if(data == "true"){
+				alert("사용 가능한 아이디입니다.");
+				flag = true;
+			}else{
+				alert("이미 사용 중인 아이디입니다.");	
+			}
+		})
+		.catch(error => console.error("Error : ", error));
+	});
+	
+	// id가 변경되면 flag를 false로 만들어서 아이디 체크를 다시 하도록
+	$("[name=id]").change(function(){
+		flag = false;
+	})
+	
+	// 회원가입 버튼이 눌리면 아이디 중복 확인 했는지 확인
+	$("form").submit(function(){
+		// 정규 표현식 구현
+		
+		if(!flag){
+			alert("아이디 중복 확인을 하세요.");
+			return false;
+		}
+	})
+</script>
 </body>
 </html>
