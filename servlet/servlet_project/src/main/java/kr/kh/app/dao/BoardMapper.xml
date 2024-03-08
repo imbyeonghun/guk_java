@@ -132,4 +132,8 @@
 		select count(*) from comment
 		where cm_bo_num = #{cri.boNum}
 	</select>
+	
+	<select id="selectComment" resultType="kr.kh.app.model.vo.CommentVO">
+		select * from comment where cm_num = #{num}
+	</select>
 </mapper>

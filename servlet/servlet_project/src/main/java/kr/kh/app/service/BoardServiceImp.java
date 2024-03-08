@@ -257,4 +257,20 @@ public class BoardServiceImp implements BoardService{
 		}
 		return boardDao.selectTotalCountComment(cri);
 	}
+
+	@Override
+	public boolean deleteComment(int num, MemberVO user) {
+		if(user == null) {
+			return false;	
+		}
+		// 댓글 번호와 일치하는 댓글을 가져옴
+		CommentVO comment = boardDao.selectComment(num);
+		// 해당 댓글의 작성자가 회원인지 확인하여 아니면 false 리턴
+		if(comment == null || 
+			!comment.getCm_me_id().equals(user.getMe_id())) {
+			return false;
+		}
+		// 맞으면 삭제 요청
+		return boardDao.deleteComment(num);
+	}
 }

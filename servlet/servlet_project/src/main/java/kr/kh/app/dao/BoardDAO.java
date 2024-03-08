@@ -8,6 +8,7 @@ import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommentVO;
 import kr.kh.app.model.vo.CommunityVO;
 import kr.kh.app.model.vo.FileVO;
+import kr.kh.app.model.vo.MemberVO;
 import kr.kh.app.model.vo.RecommendVO;
 import kr.kh.app.pagination.CommentCriteria;
 import kr.kh.app.pagination.Criteria;
@@ -49,4 +50,8 @@ public interface BoardDAO {
 	ArrayList<CommentVO> selectCommentList(@Param("cri")Criteria cri);
 
 	int selectTotalCountComment(@Param("cri")CommentCriteria cri);
+
+	CommentVO selectComment(@Param("num")int num);
+
+	boolean deleteComment(@Param("num")int num);
 }

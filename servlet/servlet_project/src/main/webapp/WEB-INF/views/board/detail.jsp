@@ -202,79 +202,119 @@
 
 <!-- 댓글 조회 구현 -->
 <script type="text/javascript">
-// 댓글 현재 페이지정보
-let cri = {	//perPageNum을 지정하지 않는 이유 : 여기서 설정하면 F12로 변경할 수 있음
-	page : 1,
-	boNum : '${board.bo_num}'
-}
-
-// 댓글 리스트를 화면에 출력하는 함수
-function getCommentList(cri){
-	$.ajax({
-		url : '<c:url value="/comment/list"/>',
-		method : "post",
-		data : cri,
-		success : function(data){
-			console.log(data.list);
-			
-			let str = '';
-			for(comment of data.list){
-				str +=
-					`
-					<div class="input-group mb-3">
-						<div class="col-3">\${comment.cm_me_id}</div>
-						<div class="col-9">\${comment.cm_content}</div>
-					</div>
-					`;
+	// 댓글 현재 페이지정보
+	let cri = {	//perPageNum을 지정하지 않는 이유 : 여기서 설정하면 F12로 변경할 수 있음
+		page : 1,
+		boNum : '${board.bo_num}'
+	}
+	
+	// 댓글 리스트를 화면에 출력하는 함수
+	function getCommentList(cri){
+		$.ajax({
+			url : '<c:url value="/comment/list"/>',
+			method : "post",
+			data : cri,
+			success : function(data){
+				console.log(data.list);
+				
+				let str = '';
+				for(comment of data.list){
+					let btns = '';
+					if('${user.me_id}' == comment.cm_me_id){
+						btns +=
+							`
+								<button class="btn btn-outline-warning btn-comment-update" data-num="\${comment.cm_num}">수정</button>
+								<button class="btn btn-outline-danger btn-comment-delete" data-num="\${comment.cm_num}">삭제</button>
+							`;
+					}
+					
+					
+					str +=
+						`
+						<div class="input-group mb-3">
+							<div class="col-3">\${comment.cm_me_id}</div>
+							<div class="col-6">\${comment.cm_content}</div>
+							\${btns}
+						</div>
+						`;
+				}
+				$(".comment-list").html(str);
+				// JSON.parse(문자열) : JSON형태의 문자를 객체로 변환
+				// JSON.stringify(객체) : 객체를 JSON형태의 문자열를 변환
+				let pm = JSON.parse(data.pm);
+				let pmStr = "";
+				
+				// 이전 버튼 활성화 여부
+				if(pm.prev){
+					pmStr += 
+						`
+						<li class="page-item">
+							<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage-1}">이전</a>
+						</li>
+						`;
+				}
+				// 숫자 페이지
+				for(i = pm.startPage; i <= pm.endPage; i++){
+					let active = pm.cri.page == i ? "active" : "";
+					pmStr += 
+						`
+						<li class="page-item \${active}">
+							<a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+						</li>
+						`;
+				}
+				// 다음 버튼 활성화 여부
+				if(pm.next){
+					pmStr += 
+						`
+						<li class="page-item">
+							<a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage+1}">다음</a>
+						</li>
+						`;
+				}
+				$(".comment-pagination>ul").html(pmStr);
+			},
+			error : function(a, b, c){
+				
 			}
-			$(".comment-list").html(str);
-			// JSON.parse(문자열) : JSON형태의 문자를 객체로 변환
-			// JSON.stringify(객체) : 객체를 JSON형태의 문자열를 변환
-			let pm = JSON.parse(data.pm);
-			let pmStr = "";
-			
-			// 이전 버튼 활성화 여부
-			if(pm.prev){
-				pmStr += 
-					`
-					<li class="page-item">
-						<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage-1}">이전</a>
-					</li>
-					`;
-			}
-			// 숫자 페이지
-			for(i = pm.startPage; i <= pm.endPage; i++){
-				let active = pm.cri.page == i ? "active" : "";
-				pmStr += 
-					`
-					<li class="page-item \${active}">
-						<a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
-					</li>
-					`;
-			}
-			// 다음 버튼 활성화 여부
-			if(pm.next){
-				pmStr += 
-					`
-					<li class="page-item">
-						<a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage+1}">다음</a>
-					</li>
-					`;
-			}
-			$(".comment-pagination>ul").html(pmStr);
-		},
-		error : function(a, b, c){
-			
-		}
+		});
+	}
+	
+	$(document).on("click",".comment-pagination .page-link", function(){
+		cri.page = $(this).data("page");
+		getCommentList(cri);	
 	});
-}
+	
+	getCommentList(cri);
+</script>
 
-$(document).on("click",".comment-pagination .page-link", function(){
-	cri.page = $(this).data("page");
-	getCommentList(cri);	
-});
-
-getCommentList(cri);
+<!-- 댓글 삭제 구현 -->
+<script type="text/javascript">
+	// 이벤트를 등록할 때 요소가 있으면 해당 요소에 이벤트를 등록. 요소가 나중에 추가되면 동작을 하지 않음
+	// $("선택자").click(function(){})
+	// document객체에 이벤트를 등록하기 때문에 요소가 나중에 추가되도 동작함
+	$(document).on("click", ".btn-comment-delete", function(){
+		let num = $(this).data("num");
+		$.ajax({
+			url : '<c:url value="/comment/delete"/>',
+			method : "post",
+			data : {
+				num
+			},
+			success : function(data){
+				console.log(data);
+				if(data == 'ok'){
+					alert("댓글을 삭제했습니다.");
+					getCommentList(cri);
+				}else{
+					alert("댓글을 삭제하지 못했습니다.");
+				}
+			},
+			error : function(a, b, c){
+				
+			}
+		});
+	});
 </script>
 </body>
 </html>
