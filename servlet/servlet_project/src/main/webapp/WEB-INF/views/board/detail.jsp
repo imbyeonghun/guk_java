@@ -4,10 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>게시글 상세</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<meta charset="UTF-8">
+	<title>게시글 상세</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"/>
@@ -53,6 +54,21 @@
 			  		<a href="<c:url value="/board/delete?num=${board.bo_num}"/>" class="btn btn-outline-danger">삭제</a>
 			  		<a href="<c:url value="/board/update?num=${board.bo_num}"/>" class="btn btn-outline-danger">수정</a>
 			  	</c:if>
+			  	<div class="mt-3 mb-3 comment-box">
+			  		<hr>
+			  		<h3>댓글</h3>
+			  		<!-- 댓글 리스트를 보여주는 박스 -->
+			  		<div class="comment-list"></div>
+			  		<!-- 댓글 페이지네이션 박스 -->
+			  		<div class="comment-pagenation"></div>
+			  		<!-- 댓글 입력 박스 -->
+			  		<div class="comment-input-box">
+						<div class="input-group">
+							<textarea class="form-control comment-content"></textarea>
+							<button type="button" class="btn btn-outline-success btn-comment-insert">등록</button>
+						</div>
+			  		</div>
+			  	</div>
 			</div>
 		</c:when>
 		<c:otherwise>
@@ -60,6 +76,7 @@
 		</c:otherwise>
 	</c:choose>
 </div>
+<!-- 추천 기능 구현 -->
 <script type="text/javascript">
 	let btnUp = document.getElementById("btnUp");
 	let btnDown = document.getElementById("btnDown");
@@ -132,5 +149,34 @@
 		}
 	</c:if>
 </script>
+
+<!-- 댓글 기능 구현 -->
+<script type="text/javascript">
+	// (댓글)등록 버튼 클릭 이벤트를 등록
+	$(".btn-comment-insert").click(function(){
+		// 입력받은 댓글을 가져옴
+		let content = $(".comment-content").val();
+		// 게시글 번호를 가져옴
+		let num = '${board.bo_num}';
+		$.ajax({
+			url : '<c:url value="/comment/insert"/>',
+			method : "post",
+			data : {	//  속성명 == 변수명 => 생략가능
+				content,
+				num
+			},
+			success : function(data){
+				console.log(data);
+			},
+			error : function(a, b, c){
+				
+			}
+		})
+	});// click
+	
+</script>
 </body>
 </html>
+
+
+
