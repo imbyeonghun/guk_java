@@ -165,6 +165,7 @@
 			//확인 누르면 로그인 페이지로
 			if(confirm("로그인이 필요한 서비스입니다. 로그인으로 이동하겠습니까?")){
 				location.href = "<c:url value='/login'/>"
+				return;
 			}
 			//취소 누르면 현재 페이지에서 동작을 안함
 			else{
