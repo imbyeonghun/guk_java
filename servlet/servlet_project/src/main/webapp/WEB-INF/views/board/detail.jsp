@@ -58,7 +58,9 @@
 			  		<hr>
 			  		<h3>댓글</h3>
 			  		<!-- 댓글 리스트를 보여주는 박스 -->
-			  		<div class="comment-list"></div>
+			  		<div class="comment-list">
+			  			
+			  		</div>
 			  		<!-- 댓글 페이지네이션 박스 -->
 			  		<div class="comment-pagenation"></div>
 			  		<!-- 댓글 입력 박스 -->
@@ -150,10 +152,23 @@
 	</c:if>
 </script>
 
-<!-- 댓글 기능 구현 -->
+<!-- 댓글 등록 구현 -->
 <script type="text/javascript">
 	// (댓글)등록 버튼 클릭 이벤트를 등록
 	$(".btn-comment-insert").click(function(){
+		
+		//로그인 안했으면
+		if('${user.me_id}' == ''){
+			//확인 누르면 로그인 페이지로
+			if(confirm("로그인이 필요한 서비스입니다. 로그인으로 이동하겠습니까?")){
+				location.href = "<c:url value='/login'/>"
+			}
+			//취소 누르면 현재 페이지에서 동작을 안함
+			else{
+				return;
+			}
+		}
+		
 		// 입력받은 댓글을 가져옴
 		let content = $(".comment-content").val();
 		// 게시글 번호를 가져옴
@@ -173,7 +188,45 @@
 			}
 		})
 	});// click
-	
+</script>
+
+<!-- 댓글 조회 구현 -->
+<script type="text/javascript">
+
+// 댓글 현재 페이지정보
+let cri = {	//perPageNum을 지정하지 않는 이유 : 여기서 설정하면 F12로 변경할 수 있음
+	page : 1,
+	boNum : '${board.bo_num}'
+}
+
+// 댓글 리스트를 화면에 출력하는 함수
+function getCommentList(cri){
+	$.ajax({
+		url : '<c:url value="/comment/list"/>',
+		method : "post",
+		data : cri,
+		success : function(data){
+			console.log(data.list);
+			
+			let str = '';
+			for(comment of data.list){
+				str +=
+					`
+					<div class="input-group mb-3">
+						<div class="col-3">\${comment.cm_me_id}</div>
+						<div class="col-9">\${comment.cm_content}</div>
+					</div>
+					`;
+			}
+			$(".comment-list").html(str);
+		},
+		error : function(a, b, c){
+			
+		}
+	});
+}
+
+getCommentList(cri);
 </script>
 </body>
 </html>

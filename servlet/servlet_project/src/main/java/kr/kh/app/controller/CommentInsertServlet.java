@@ -29,8 +29,6 @@ public class CommentInsertServlet extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(content);
-		System.out.println(bo_num);
 		
 		// 댓글 작성자 가져옴 => 회원 정보를 가져옴
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");

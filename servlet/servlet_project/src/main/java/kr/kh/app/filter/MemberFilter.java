@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import kr.kh.app.model.vo.MemberVO;
 
-@WebFilter({"/board/insert","/board/update","/board/delete"})
+@WebFilter({	// 해당 링크로 들어갈때 필터로 한번 확인해줌
+	"/board/insert", "/board/update", "/board/delete", "/recommend",
+	"/comment/insert", "/comment/update", "/comment/delete"})
 public class MemberFilter extends HttpFilter implements Filter {
        
 	private static final long serialVersionUID = 1L;

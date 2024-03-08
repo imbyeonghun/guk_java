@@ -240,4 +240,12 @@ public class BoardServiceImp implements BoardService{
 		}
 		return boardDao.insertComment(comment);
 	}
+
+	@Override
+	public ArrayList<CommentVO> getCommentList(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria(1, 2);
+		}
+		return boardDao.selectCommentList(cri);
+	}
 }

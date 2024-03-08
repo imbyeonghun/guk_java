@@ -37,4 +37,6 @@ public interface BoardService {
 	RecommendVO getRecommend(MemberVO user, int num);
 
 	boolean insertComment(CommentVO comment);
+
+	ArrayList<CommentVO> getCommentList(Criteria cri);
 }
