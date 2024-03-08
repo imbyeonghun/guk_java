@@ -181,7 +181,14 @@
 				num
 			},
 			success : function(data){
-				console.log(data);
+				if(data == "ok"){
+					alert("댓글을 등록했습니다.");
+					cri.page = 1;
+					getCommentList(cri);
+					$(".comment-content").val("");
+				}else{
+					alert("댓글을 등록하지 못했습니다.");
+				}
 			},
 			error : function(a, b, c){
 				
@@ -192,7 +199,6 @@
 
 <!-- 댓글 조회 구현 -->
 <script type="text/javascript">
-
 // 댓글 현재 페이지정보
 let cri = {	//perPageNum을 지정하지 않는 이유 : 여기서 설정하면 F12로 변경할 수 있음
 	page : 1,

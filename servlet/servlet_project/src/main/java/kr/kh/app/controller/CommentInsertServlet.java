@@ -39,6 +39,6 @@ public class CommentInsertServlet extends HttpServlet {
 		// 객체를 서비스에게 주고 댓글 등록하라고 시킴
 		boolean res = boardService.insertComment(comment);
 		
-		response.getWriter().write("123");
+		response.getWriter().write(res ? "ok" : "");
 	}
 }
