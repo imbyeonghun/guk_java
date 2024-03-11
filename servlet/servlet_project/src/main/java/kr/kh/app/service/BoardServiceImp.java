@@ -273,4 +273,21 @@ public class BoardServiceImp implements BoardService{
 		// 맞으면 삭제 요청
 		return boardDao.deleteComment(num);
 	}
+
+	@Override
+	public boolean updateComment(CommentVO comment) {
+		if(comment == null || 
+			!checkString(comment.getCm_content()) ||
+			!checkString(comment.getCm_me_id())) {
+			return false;
+		}
+		
+		CommentVO dbComment = boardDao.selectComment(comment.getCm_num());
+		
+		if(dbComment == null ||
+			!dbComment.getCm_me_id().equals(comment.getCm_me_id())) {
+			return false;
+		}
+		return boardDao.updateComment(comment);
+	}
 }

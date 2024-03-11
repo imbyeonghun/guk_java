@@ -224,17 +224,19 @@
 					if('${user.me_id}' == comment.cm_me_id){
 						btns +=
 							`
+							<div class="btn-comment-group">
 								<button class="btn btn-outline-warning btn-comment-update" data-num="\${comment.cm_num}">수정</button>
 								<button class="btn btn-outline-danger btn-comment-delete" data-num="\${comment.cm_num}">삭제</button>
+							</div>
 							`;
 					}
 					
 					
 					str +=
 						`
-						<div class="input-group mb-3">
+						<div class="input-group mb-3 box-comment">
 							<div class="col-3">\${comment.cm_me_id}</div>
-							<div class="col-6">\${comment.cm_content}</div>
+							<div class="col-6 cm_content">\${comment.cm_content}</div>
 							\${btns}
 						</div>
 						`;
@@ -316,6 +318,68 @@
 			}
 		});
 	});
+</script>
+
+<!-- 댓글 수정 구현 -->
+<script type="text/javascript">
+$(document).on("click", ".btn-comment-update", function(){
+	initComment();
+	// 현재 댓글 보여주는 창이 textarea대그로 변경
+	// 기존 댓글 창을 감춤
+	$(this).parents(".box-comment").find(".cm_content").hide();
+	let comment = $(this).parents(".box-comment").find(".cm_content").text();
+	let textarea =
+		`
+		<textarea class="form-control com-input">\${comment}</textarea>
+		`;
+	$(this).parents(".box-comment").find(".cm_content").after(textarea);
+		
+	// 수정 삭제 버튼 대신 수정 완료 버튼으로 변경
+	$(this).parent().hide();
+	let num = $(this).data("num")
+	let btn = 
+		`
+		<button class="btn btn-outline-success btn-complete" data-num="\${num}">수정완료</button>
+		`;
+	$(this).parent().after(btn);
+});
+
+function initComment(){
+	// 기존 댓글태그
+	$(".cm_content").show();
+	// 기존 버튼태그
+	$(".btn-comment-group").show();
+	// 수정 댓글태그
+	$(".com-input").remove();
+	// 수정 버튼태그
+	$(".btn-complete").remove();
+}
+
+// 수정완료 버튼 클릭 이벤트
+$(document).on("click", ".btn-complete", function(){
+	// 수정하기 위해 필요한 정보를 가져옴 : 수정한 내용, 댓글 번호
+	let num = $(this).data("num");	//data-num="\${num}"
+	let content = $(".com-input").val();
+	$.ajax({
+		url : '<c:url value="/comment/update"/>',
+		method : 'post',
+		data : {		// 속성이름 : 값을 가지는 변수명
+			num,		// num : num
+			content		// content : content
+		},
+		success : function(data){
+			if(data == "ok"){
+				alert("댓글을 수정했습니다.");
+				getCommentList(cri);
+			}else{
+				alert("댓글을 수정하지 못했습니다.");
+			}
+		},
+		error : function(xhr, status, error){
+			
+		}
+	});
+});
 </script>
 </body>
 </html>

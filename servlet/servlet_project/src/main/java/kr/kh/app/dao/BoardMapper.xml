@@ -70,7 +70,10 @@
 	</select>
 	
 	<update id="updateView">
-		update board set bo_view = bo_view + 1 where bo_num = #{num}
+		update board set 
+			bo_view = bo_view + 1 
+		where 
+			bo_num = #{num}
 	</update>
 	
 	<delete id="deleteBoard">
@@ -113,7 +116,10 @@
 	</insert>
 	
 	<update id="updateRecommend">
-		update recommend set re_state = #{re.re_state} where re_num = #{re.re_num}
+		update recommend set 
+			re_state = #{re.re_state} 
+		where 
+			re_num = #{re.re_num}
 	</update>
 	
 	<insert id="insertComment">
@@ -136,4 +142,15 @@
 	<select id="selectComment" resultType="kr.kh.app.model.vo.CommentVO">
 		select * from comment where cm_num = #{num}
 	</select>
+	
+	<delete id="deleteComment">
+		delete from comment where cm_num = #{num}
+	</delete>
+	
+	<update id="updateComment">
+		update comment set 
+			cm_content = #{comment.cm_content} 
+		where
+			cm_num = #{comment.cm_num}
+	</update>
 </mapper>

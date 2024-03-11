@@ -44,4 +44,6 @@ public interface BoardService {
 	int getTotalCountComment(CommentCriteria cri);
 
 	boolean deleteComment(int num, MemberVO user);
+
+	boolean updateComment(CommentVO comment);
 }

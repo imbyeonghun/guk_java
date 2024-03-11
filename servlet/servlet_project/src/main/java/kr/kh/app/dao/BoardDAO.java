@@ -54,4 +54,6 @@ public interface BoardDAO {
 	CommentVO selectComment(@Param("num")int num);
 
 	boolean deleteComment(@Param("num")int num);
+
+	boolean updateComment(@Param("comment")CommentVO comment);
 }
