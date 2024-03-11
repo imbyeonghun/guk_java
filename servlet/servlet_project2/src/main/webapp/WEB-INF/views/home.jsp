@@ -11,5 +11,31 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"/>
+<div class="container">
+	<!-- 
+	1. 버튼을 추가해서 버튼을 클릭하면 ajax(post, url은 /)로 숫자 1을 서버에 전송하고, 
+	2. 서버에서 넘겨받은 1을 콘솔에 출력한 후 abc를 전송
+	3. 서버에서 보낸 abc를 alert으로 출력
+	-->
+	<button class="btn btn-outline-success mt-5" id="test">ajax 테스트</button>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+<script type="text/javascript">
+	$("#test").click(function(){
+		$.ajax({
+			url : '<c:url value="/"/>',
+			method : 'post',
+			data : {
+				num : 1
+			},
+			success : function(data){
+				alert(data);
+			},
+			error : function(xhr, status, error){
+				
+			}
+		});
+	});
+</script>
 </body>
 </html>

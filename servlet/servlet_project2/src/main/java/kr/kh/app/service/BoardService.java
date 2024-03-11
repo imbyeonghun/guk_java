@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.Part;
 
 import kr.kh.app.model.vo.BoardVO;
+import kr.kh.app.model.vo.CommentVO;
 import kr.kh.app.model.vo.CommunityVO;
 import kr.kh.app.model.vo.FileVO;
 import kr.kh.app.model.vo.MemberVO;
@@ -34,4 +35,8 @@ public interface BoardService {
 	int recommend(int bonum, int state, String me_id);
 
 	RecommendVO getRecommend(int num, MemberVO user);
+
+	ArrayList<CommentVO> getCommentList(Criteria cri);
+
+	int getTotalCommentCount(Criteria cri);
 }

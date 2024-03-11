@@ -15,4 +15,12 @@ public class MainServlet extends HttpServlet {
 		// webapp폴더 이후부터 경로 작성
 		request.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(request, response);
 	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String num = request.getParameter("num");
+		System.out.println("화면에서 보낸 값 : " + num);
+		response.getWriter().write("abc");
+	}
 }
