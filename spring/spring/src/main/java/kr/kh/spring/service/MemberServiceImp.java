@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.spring.dao.MemberDAO;
 
-@Service	// 있어야 MemberService의 @Autowired 해당 코드가 실행됨
+@Service	// 있어야 Controller의 @Autowired 해당 코드가 실행됨
 public class MemberServiceImp implements MemberService {
 
 	@Autowired
