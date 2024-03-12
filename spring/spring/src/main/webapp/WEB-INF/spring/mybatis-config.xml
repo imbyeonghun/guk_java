@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<!-- 
+			Mapper에서 resultType을 간단히 줄여쓰기 위해 typeAlias를 활용
+			 type : 줄여쓸 타입의 경로
+			 alias : 줄인 경로를 가져올 이름
+		-->
+		<typeAlias type="kr.kh.spring.model.vo.MemberVO" alias="MemberVO"/>
+	</typeAliases>
+</configuration>

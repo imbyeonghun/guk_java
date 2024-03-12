@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.kh.spring.model.dto.TestDTO;
+import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.service.MemberService;
 
 @Controller
@@ -20,9 +21,8 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String homeGet(Model model) {
 		
-		// 테스트용으로 등록된 회원 수를 조회
-		int count = memberService.testCountMember();
-		System.out.println("등록된 회원 수 : " + count);
+		MemberVO member = memberService.getMember("admin");
+		System.out.println(member);
 		
 		// model을 이용해서 화면으로 전송
 		// model.addAttribute("화면에서 사용할 이름", "보낼 데이터");
