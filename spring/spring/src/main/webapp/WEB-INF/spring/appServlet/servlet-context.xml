@@ -15,13 +15,27 @@
 	<!-- url이 /resources 로 시작하면 /webapp 폴더 안에 있는 resources 폴더 안에 있는 파일들을 가져오도록 설정 -->
 	<resources mapping="/resources/**" location="/resources/" />
 
-	<!-- 
+	<!-- 뷰 리졸버
 		 controller에서 문자열을 리턴하면 InternalResourceViewResolver에서 어떤 화면을 연결할지 설정하는 코드
 		 문자열 앞에 prefix를 붙이고, 뒤에 suffix를 자동으로 붙여준다.
 	-->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 타일즈 뷰 리졸버 추가 -->
+	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	    <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	    <beans:property name="order" value="1" /><!-- 순서를 우선으로 지정 -->
+	</beans:bean>
+	     
+	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+	    <beans:property name="definitions">
+	        <beans:list>
+	            <beans:value>/WEB-INF/spring/tiles-def.xml</beans:value>
+	        </beans:list>
+	    </beans:property>
 	</beans:bean>
 	
 	<!-- 클래스들을 읽어올 수 있게 기본 패키지를 지정 -->

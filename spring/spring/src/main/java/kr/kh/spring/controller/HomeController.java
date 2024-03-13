@@ -22,13 +22,13 @@ public class HomeController {
 		// model을 이용해서 화면으로 전송
 		// model.addAttribute("화면에서 사용할 이름", "보낼 데이터");
 		
-		return "home";	// home.jsp 파일로 연결
+		return "/main/home";
 	}
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signupGet(Model model) {
 		
-		return "member/signup";
+		return "/member/signup";
 	}
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
@@ -48,7 +48,7 @@ public class HomeController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGet(Model model) {
 		
-		return "member/login";
+		return "/member/login";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
