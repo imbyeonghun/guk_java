@@ -5,9 +5,9 @@ import org.apache.ibatis.annotations.Param;
 import kr.kh.spring.model.vo.MemberVO;
 
 public interface MemberDAO {
+	//@Param("member") 
+	boolean insertMember(MemberVO member);
 
-	int selectMemberCount();
-
-	MemberVO selectMember(@Param("id")String id);
+	MemberVO selectMember(String me_id);
 
 }

@@ -4,23 +4,28 @@
 <!doctype html>
 <html>
 <head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 	<title>Home</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
-<p> 안녕하세요. 제 이름은${name}입니다.</p>
-<form action="<c:url value="/"/>" method="post">
-	<input type="text" name="name" placeholder="이름">
-	<br>
-	<input type="number" name="age" placeholder="나이">
-	<br>
-	<button type="submit">전송</button>
-</form>
-<!-- url경로에 데이터를 추가하여 서버에 전송 -->
-<a href="<c:url value="/test/123"/>">링크 테스트</a>
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<a class="navbar-brand" href="<c:url value="/"/>">Logo</a>
+		
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" href="<c:url value="/signup"/>">회원 가입</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="<c:url value="/login"/>">로그인</a>
+			</li>
+		</ul>
+	</nav>
+	<div class="container">
+		<h1>메인입니다.</h1>
+	</div>
 </body>
 </html>
