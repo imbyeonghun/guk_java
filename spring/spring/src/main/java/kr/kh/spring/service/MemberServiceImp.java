@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.kh.spring.dao.MemberDAO;
+import kr.kh.spring.model.dto.LoginDTO;
 import kr.kh.spring.model.vo.MemberVO;
 
 @Service	// 있어야 Controller의 @Autowired 해당 코드가 실행됨
@@ -30,5 +31,22 @@ public class MemberServiceImp implements MemberService {
 			return false;
 		}
 		return memberDao.insertMember(member);
+	}
+
+	@Override
+	public MemberVO login(LoginDTO loginDto) {
+		if( loginDto == null || 
+			!checkString(loginDto.getId()) ||
+			!checkString(loginDto.getPw())) {
+			return null;
+		}
+		
+		// 아이디와 일치하는 회원 정보를 가져오고
+		MemberVO member = memberDao.selectMember(loginDto.getId());
+		// 회원정보가 없거나 입력한 비번과 DB에 저장된 비번이 다르면
+		if(member == null || !member.getMe_pw().equals(loginDto.getPw())) {
+			return null;
+		}
+		return member;
 	}
 }

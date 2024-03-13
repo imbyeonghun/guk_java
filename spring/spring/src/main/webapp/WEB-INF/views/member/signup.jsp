@@ -13,19 +13,21 @@
 	<!-- jquery validtation -->
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
-	<title>Insert title here</title>
+	<title>스프링 - 회원가입</title>
 </head>
 <body>
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<a class="navbar-brand" href="<c:url value="/"/>">Logo</a>
 		
 		<ul class="navbar-nav">
-			<li class="nav-item">
-				<a class="nav-link" href="<c:url value="/signup"/>">회원 가입</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="<c:url value="/login"/>">로그인</a>
-			</li>
+			<c:if test="${user == null}">
+				<li class="nav-item">
+					<a class="nav-link" href="<c:url value="/signup"/>">회원 가입</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="<c:url value="/login"/>">로그인</a>
+				</li>
+			</c:if>
 		</ul>
 	</nav>
 	<div class="container">
