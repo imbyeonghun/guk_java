@@ -10,5 +10,6 @@
 			 alias : 줄인 경로를 가져올 이름
 		-->
 		<typeAlias type="kr.kh.spring.model.vo.MemberVO" alias="MemberVO"/>
+		<typeAlias type="kr.kh.spring.model.vo.BoardVO" alias="BoardVO"/>
 	</typeAliases>
 </configuration>
