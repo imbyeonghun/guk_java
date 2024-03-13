@@ -7,7 +7,7 @@ import kr.kh.spring.dao.MemberDAO;
 import kr.kh.spring.model.dto.LoginDTO;
 import kr.kh.spring.model.vo.MemberVO;
 
-@Service	// 있어야 Controller의 @Autowired 해당 코드가 실행됨
+@Service	// 있어야 @Autowired 해당 코드가 실행됨
 public class MemberServiceImp implements MemberService {
 
 	@Autowired
