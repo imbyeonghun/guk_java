@@ -8,7 +8,7 @@
     <definition name="/*/*" template="/WEB-INF/views/layout/baseLayout.jsp">
         <put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
         <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
-    	<!-- /*/* => {1}/{2}로 인ㅅ -->
+    	<!-- /*/* => {1}/{2}로 인식 -->
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp"/>
     </definition>
     
