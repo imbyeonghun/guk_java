@@ -14,6 +14,7 @@
 
 	<!-- url이 /resources 로 시작하면 /webapp 폴더 안에 있는 resources 폴더 안에 있는 파일들을 가져오도록 설정 -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/download/**" location="file:///D:/uploads/" />
 
 	<!-- 뷰 리졸버
 		 controller에서 문자열을 리턴하면 InternalResourceViewResolver에서 어떤 화면을 연결할지 설정하는 코드
@@ -59,4 +60,14 @@
 		</interceptor>
 	</interceptors>
 	
+	<!-- 첨부파일 용량 제한 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 업로드 최대 크기 10Mb = 10485760byte -->
+		<beans:property name="maxUploadSize" value="10485760"/>
+	</beans:bean>
+	
+	<!-- 첨부파일을 업로드할 서버 경로 -->
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="D:\\uploads"/>
+	</beans:bean>
 </beans:beans>

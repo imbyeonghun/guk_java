@@ -10,7 +10,7 @@
 	<title>스프링 - 게시글 등록</title>
 </head>
 <body>
-<form action="<c:url value="/board/insert"/>" method="post">
+<form action="<c:url value="/board/insert"/>" method="post" enctype="multipart/form-data">
 	<h1>게시글 등록</h1>
 	<div class="form-group">
 		<label for="bo_title">게시판</label>
@@ -27,6 +27,12 @@
 	<div class="form-group">
 		<label for="bo_content">내용</label>
 		<textarea class="form-control" id="bo_content" name="bo_content"></textarea>
+	</div>
+	<div class="form-group">
+		<label>첨부파일(최대 3개)</label>
+		<input type="file" class="form-control" name="file">
+		<input type="file" class="form-control" name="file">
+		<input type="file" class="form-control" name="file">
 	</div>
 	<button class="btn btn-outline-success">게시글 등록</button>
 </form>
