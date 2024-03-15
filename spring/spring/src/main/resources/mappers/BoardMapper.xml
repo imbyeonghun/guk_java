@@ -9,10 +9,24 @@
 			sum(case when re_state = 1 then 1 else 0 end) as bo_up,
 		    sum(case when re_state = -1 then 1 else 0 end) as bo_down
 		from board 
-				join community 
-			on co_num = bo_co_num
-				left join recommend 
-			on re_bo_num = bo_num
+				join 
+			community on co_num = bo_co_num
+				left join 
+			recommend on re_bo_num = bo_num
+		where 
+			<choose>
+				<!-- 검색하려는 type이 조건에 맞는 문 실행 -->
+				<when test='cri.type == "all"'>
+					bo_title like concat('%', #{cri.search}, '%') or
+					bo_me_id = #{cri.search}
+				</when>
+				<when test='cri.type == "title"'>
+					bo_title like concat('%', #{cri.search}, '%')
+				</when>
+				<otherwise>
+					bo_me_id = #{cri.search}
+				</otherwise>
+			</choose>
 		group by bo_num
 		order by bo_num desc
 		limit #{cri.pageStart}, #{cri.perPageNum}
