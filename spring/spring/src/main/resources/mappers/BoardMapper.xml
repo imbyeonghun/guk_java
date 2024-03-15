@@ -35,4 +35,13 @@
 	<select id="selectBoardTotalCount" resultType="int">
 		select count(*) from board
 	</select>
+	
+	<select id="selectCommunityList" resultType="CommunityVO">
+		select * from community
+	</select>
+	
+	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="board.bo_num">
+		insert into board(bo_title, bo_content, bo_co_num, bo_me_id)
+		values(#{board.bo_title},#{board.bo_content},#{board.bo_co_num},#{board.bo_me_id})
+	</insert>
 </mapper>
