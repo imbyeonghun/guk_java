@@ -3,6 +3,7 @@ package kr.kh.spring.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,7 +71,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/detail")
-	public String boardDetail(Model model, int boNum, Criteria cri) {
+	public String boardDetail(Model model, int boNum, Criteria cri, HttpSession session) {
 		
 		// 조회수 증가
 		boardService.updateView(boNum);
@@ -87,5 +88,27 @@ public class BoardController {
 		model.addAttribute("cri",cri);
 		
 		return "/board/detail";
+	}
+	
+	@GetMapping("/board/delete")
+	public String boardDelete(Model model, int boNum, HttpSession session) {
+		
+		// HttpServletRequest 대신 HttpSession으로 바로 session으로 접근
+		// 회원 정보를 가져옴
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		// 서비스에게 게시글 번호와 회원 정보를 주면서 삭제하라고 요청
+		boolean res = boardService.deleteBoard(boNum, user);
+		
+		if(res) {
+			// 삭제 성공시 성공 처리
+			model.addAttribute("url","/board/list");
+			model.addAttribute("msg", "게시글을 삭제했습니다.");
+		}else {
+			// 삭제 실패시 실패 처리
+			model.addAttribute("url","/board/detail?boNum="+boNum);
+			model.addAttribute("msg", "게시글을 삭제하지 못했습니다.");
+		}
+		return "message";
 	}
 }

@@ -1,6 +1,5 @@
 package kr.kh.spring.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -51,6 +50,18 @@ public class BoardServiceImp implements BoardService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	// 게시글 수정에서도 사용하기 위해 따로 메서드 생성
+	private void deleteFile(FileVO file) {
+		if(file == null) {
+			return;
+		}
+		// 서버에서 삭제
+		// 서버 경로, 첨부파일 이름
+		UploadFileUtils.deleteFile(uploadPath, file.getFi_name());
+		// DB에서 삭제
+		boardDao.deleteFile(file.getFi_num());
 	}
 	
 	@Override
@@ -117,5 +128,34 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public ArrayList<FileVO> getFileList(int boNum) {
 		return boardDao.selectFileList(boNum);
+	}
+
+	@Override
+	public boolean deleteBoard(int num, MemberVO user) {
+		if(user == null) {
+			return false;
+		}
+		// 게시글 번호에 맞는 게시글을 가져옴
+		BoardVO board = boardDao.selectBoard(num);
+		
+		// 게시글이 없거나 작성자가 맞으면 false를 리턴
+		if(board == null ||
+			!board.getBo_me_id().equals(user.getMe_id())) {
+			return false;
+			
+		}
+			
+		// 맞으면 삭제 후 결과를 리턴
+		// 서버에 첨부파일 삭제 및 DB에서 제거 => 게시글 번호에 맞는 첨부파일 리스트를 가져옴
+		ArrayList<FileVO> fileList = boardDao.selectFileList(num); 
+		
+		// 첨부파일 리스트가 있으면 반복문으로 첨부파일을 삭제
+		if(fileList != null) {
+			for(FileVO file : fileList) {
+				deleteFile(file);
+			}
+		}
+		// 게시글 삭제
+		return boardDao.deleteBoard(num);
 	}
 }
