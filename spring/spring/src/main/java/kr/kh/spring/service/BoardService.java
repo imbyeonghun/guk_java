@@ -27,5 +27,6 @@ public interface BoardService {
 	ArrayList<FileVO> getFileList(int boNum);
 
 	boolean deleteBoard(int num, MemberVO user);
-	
+
+	boolean updateBoard(BoardVO board, MemberVO user, MultipartFile[] file, int[] delNums);
 }
