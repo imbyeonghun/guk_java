@@ -47,16 +47,29 @@
 		id : 객체명
 		class : 경로 
 	-->
-	<beans:bean id="loginInterceptor" class="kr.kh.spring.interceptor.LoginInterceptor" />
+	<beans:bean id="loginInterceptor" class="kr.kh.spring.interceptor.LoginInterceptor"/>
+	<beans:bean id="memberInterceptor" class="kr.kh.spring.interceptor.MemberInterceptor"/>
+	<beans:bean id="guestInterceptor" class="kr.kh.spring.interceptor.GuestInterceptor"/>
 	
 	<!-- 
-		LoginInterceptor가 실행될 URL지정 
+		LoginInterceptor, MemberInterceptor가 실행될 URL지정 
 		<beans:ref>에서 bean과 위 코드인 <beans:bean>태그의 id가 동일
 	-->
 	<interceptors>
 		<interceptor>
 			<mapping path="/login"/>
 			<beans:ref bean="loginInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/board/insert"/>
+			<mapping path="/board/update"/>
+			<mapping path="/board/delete"/>
+			<beans:ref bean="memberInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/login"/>
+			<mapping path="/signup"/>
+			<beans:ref bean="guestInterceptor" />
 		</interceptor>
 	</interceptors>
 	

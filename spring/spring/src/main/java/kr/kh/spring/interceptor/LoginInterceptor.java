@@ -10,6 +10,7 @@ import kr.kh.spring.model.vo.MemberVO;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
+	/*
 	// 디스패쳐서블릿에서 컨트롤러로 들어가기 전 작업할 내용 : 컨트롤러 실행 전 동작
 	// MemberFilter, GuestFilter 구현 가능
 	@Override
@@ -19,7 +20,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			Object handler) throws Exception {
 		return true;
 	}
-
+	*/
+	
 	// 컨트롤러에서 디스패쳐서블릿으로 가기 전 작업할 내용 : 컨트롤러 실행 후 동작
 	// 로그인
 	@Override
