@@ -8,4 +8,6 @@ public interface MemberService {
 	boolean insertMember(MemberVO member);
 
 	MemberVO login(LoginDTO loginDto);
+
+	boolean idCheck(String id);
 }
