@@ -56,7 +56,12 @@
  		<div class="box-pagination">
 			<ul class="pagination justify-content-center"></ul>
  		</div>
- 		<div class="box-comment-insert"></div>
+ 		<div class="box-comment-insert">
+ 			<div class="input-group mb-3">
+			  	<textarea class="form-control textarea-comment"></textarea>
+				<button class="btn btn-outline-success btn-commnet-insert">댓글 등록</button>
+			</div>
+ 		</div>
  		<hr>
  	</div>
  	<c:url value="/board/list" var="url">
@@ -109,11 +114,22 @@ function displayCommentList(list){
 		return;
 	}
 	for(item of list){
+	let boxbtns = 
+		`<span class="box-btn float-right">
+			<button class="btn btn-outline-danger btn-comment-del"
+					data-num="\${item.cm_num}">삭제</button>
+		</span>`;
+	btns = '${user.me_id}' == item.cm_me_id ? boxbtns : '';
 		str +=
 			`
 			<div class="box-comment row">
  				<div class="col-3">\${item.cm_me_id}</div>
- 				<div class="col-9">\${item.cm_content}</div>
+ 				<div class="col-9 clearfix">
+ 					<span>
+ 						\${item.cm_content}
+ 					</span>
+ 					\${btns}
+ 				</div>
  			</div>
 			`;
 		$('.box-comment-list').html(str);
@@ -154,6 +170,99 @@ $(document).on('click', '.box-pagination .page-link', function(){
 	cri.page = $(this).data("page");
 	getCommentList(cri);
 });
+</script>
+
+<!-- 댓글 등록 -->
+<script type="text/javascript">
+// 댓글 등록 버튼의 클릭 이벤트 등록
+$(".btn-commnet-insert").click(function(){
+	
+	if(!checkLogin()){
+		return;
+	}
+	
+	// 서버에 보낼 데이터를 생성 => 댓글 등록을 위한 정보 => 댓글내용, 게시글 번호
+	let comment = {
+		cm_content : $('.textarea-comment').val(),
+		cm_bo_num : '${board.bo_num}'
+	}
+	
+	// 내용이 비어있으면 내용을 입력하라고 알림
+	if(comment.cm_content.length == 0){
+		alert("댓글 내용을 작성하세요");
+		return;
+	}
+	
+	// 서버에 데이터를 전송
+	$.ajax({
+		async : true,
+		url : '<c:url value="/comment/insert"/>', 
+		type : 'post', 
+		data : JSON.stringify(comment), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			if(data.result){
+				alert("댓글을 등록했습니다.");
+				$('.textarea-comment').val(''),
+				cri.page = 1;
+				getCommentList(cri);
+			}else{
+				alert("댓글을 등록하지 못했습니다.");
+			}
+		},
+		error : function(xhr, textStatus, errorThrown){
+			console.log(xhr);
+			console.log(textStatus);
+		}
+	});
+});
+
+function checkLogin(){
+	if('${user.me_id}' != ''){
+		return true;
+	}
+	if(confirm("로그인이 필요한 기능입니다. \n로그인 페이지로 이동하겠습니까?")){
+		location.href = '<c:url value="/login"/>'
+	}
+	return false;
+}
+</script>
+
+<!-- 댓글 삭제 -->
+<script type="text/javascript">
+// 댓글 삭제 버튼 클릭시 alert(1)이 실행
+$(document).on("click",".btn-comment-del",function(){
+	// 서버로 보낼 데이터 생성 => 댓글 번호
+	let comment = {
+		cm_num : $(this).data('num') 
+	}
+	// 서버로 데이터 전송
+	$.ajax({
+		async : true,
+		url : '<c:url value="/comment/delete"/>', 
+		type : 'post',
+		data : JSON.stringify(comment), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			if(data.result){
+				alert("댓글을 삭제했습니다.");
+				getCommentList(cri);
+			}else{
+				alert("댓글을 삭제하지 못했습니다.");
+			}
+		},
+		error : function(xhr, textStatus, errorThrown){
+			console.log(xhr);
+			console.log(textStatus);
+		}
+	});
+});
+
+
+
+
 </script>
 </body>
 </html>

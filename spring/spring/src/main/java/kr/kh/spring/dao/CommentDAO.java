@@ -12,4 +12,10 @@ public interface CommentDAO {
 	ArrayList<CommentVO> selectCommentList(@Param("cri")Criteria cri);
 
 	int selectTotalCount(@Param("cri")Criteria cri);
+
+	boolean insertComment(@Param("comment")CommentVO comment);
+
+	CommentVO selectComment(@Param("cm_num")int cm_num);
+
+	boolean deleteComment(@Param("cm_num")int cm_num);
 }
