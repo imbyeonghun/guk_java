@@ -10,4 +10,6 @@ public interface MemberDAO {
 	MemberVO selectMember(String me_id);
 	
 	void updatePassword(@Param("id")String id, @Param("pw")String encPw);
+	
+	boolean updateMember(@Param("me")MemberVO member);
 }
