@@ -11,4 +11,8 @@
 	<select id="selectMember" resultType="MemberVO">
 		select * from member where me_id = #{me_id}
 	</select>
+	
+	<update id="updatePassword">
+	  	update member set me_pw = #{pw} where me_id = #{id}
+	</update>
 </mapper>
