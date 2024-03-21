@@ -41,6 +41,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 		// ModelAndView객체에서 model객체에 넣어준 user를 가져오는 코드
 		MemberVO user = (MemberVO)modelAndView.getModel().get("user");
+		
 		if(user != null) {
 			// 세션에 회원 정보를 추가
 			request.getSession().setAttribute("user", user);
@@ -67,6 +68,13 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				
 				// 서비스에게 해당 정보를 주고 DB에 추가 요청
 				memberService.updateMemberCookie(user);
+			}
+			
+			// 되돌아갈 url이 있으면 해당 url로 돌아감
+			String url = (String)request.getSession().getAttribute("prevUrl");
+			if(url != null) {
+				response.sendRedirect(url);
+				request.getSession().removeAttribute("prevUrl");
 			}
 		}
 	}
