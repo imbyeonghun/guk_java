@@ -17,10 +17,29 @@
 	</update>
 	
 	<update id="updateMember">
-  	update member set 
-  		me_pw = #{me.me_pw},
-  		me_email = #{me.me_email}
-  	where 
-  		me_id = #{me.me_id}
-  </update>
+	  	update member set 
+	  		me_pw = #{me.me_pw},
+	  		me_email = #{me.me_email}
+	  	where 
+	  		me_id = #{me.me_id}
+  	</update>
+  	
+  	<update id="updateMemberCookie">
+  		update member set 
+  			me_cookie = #{user.me_cookie},
+  			me_cookie_limit = #{user.me_cookie_limit}
+  		where
+  			me_id = #{user.me_id}
+  	</update>
+  	
+  	<select id="selectMemberByCookie" resultType="MemberVO">
+  		<!-- 
+  		<![CDATA[ 쿼리 ]]>로 하면 쿼리문을 쿼리문으로 인식
+  		해당 작업을 안하면  me_cookie_limit < now() 부분에서 < 가 쿼리문을 다시 여는것으로 인식됨
+  		-->
+  		<![CDATA[
+  		select * from member
+  		where me_cookie = #{session_id} and me_cookie_limit >= now()
+  		]]>
+  	</select>
 </mapper>

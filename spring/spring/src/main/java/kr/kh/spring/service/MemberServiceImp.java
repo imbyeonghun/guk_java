@@ -189,4 +189,17 @@ public class MemberServiceImp implements MemberService {
 		MemberVO member = memberDao.selectMember(id);
 		return member == null;
 	}
+
+	@Override
+	public void updateMemberCookie(MemberVO user) {
+		if(user == null)
+			return;
+		memberDao.updateMemberCookie(user);
+		
+	}
+
+	@Override
+	public MemberVO getMemberByCookie(String sessionId) {
+		return memberDao.selectMemberByCookie(sessionId);
+	}
 }
