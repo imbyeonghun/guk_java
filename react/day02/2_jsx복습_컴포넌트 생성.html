@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jsx 복습</title>
+	<!-- react코드 순서 중요-->
+	<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+	<!-- cdn코드 -->
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+	<style>
+		nav{
+			height: 50px;
+			background-color: aliceblue;
+		}
+		.body{
+			min-height: 400px;
+			background-color: aquamarine;
+		}
+		footer{
+			height: 100px;
+			background-color: beige;
+		}
+	</style>
+</head>
+<body>
+	<div id="root"></div>
+<script type="text/babel">
+	const root = ReactDOM.createRoot(document.getElementById("root"));
+	/*
+	Nav, Body, Footer 컴포넌트를 생성한 후 App 컴포넌트에 추가해서 화면을 구성하세요
+	*/
+	
+    function App(){
+		return (
+			<div>
+				<Nav/>
+				<Body/>
+				<Footer/>
+			</div>
+		);
+	};
+
+	function Nav(){
+		return(
+			<nav>Nav태그입니다.</nav>
+			)
+	}
+	function Body(){
+		return(
+			<div className="body">Body태그입니다.</div>
+			)
+	}
+	function Footer(){
+		return(
+			<footer>Footer태그입니다.</footer>
+			)
+	}
+    root.render(<App/>)
+</script>
+</body>
+</html>
