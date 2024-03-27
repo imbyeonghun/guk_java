@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jsx 복습</title>
+	<!-- react코드 순서 중요-->
+	<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+	<!-- cdn코드 -->
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+<script type="text/babel">
+	// 생성한 컴포넌트를 배치할 위치를 가진 태그를 찾기
+    // const root = document.getElementById("root");
+	const root = ReactDOM.createRoot(document.getElementById("root"));
+
+	// 앱 컴포넌트 생성
+    function App(){
+		// 컴포넌트는 하나의 최상위 요소만 있어야함 => 최상위 태그가 두개 있으면 안됨
+		return (
+			<div>
+				<H1/>
+			</div>
+		);
+	};
+
+	function H1(){
+		return(<h1>리액트 테스트입니다.</h1>)
+	}
+	// 컴포넌트를 태그처럼 사용
+	// ReactDOM.render(<Btn />, root);
+    root.render(<App/>)
+</script>
+</body>
+</html>
