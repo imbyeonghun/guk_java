@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jsx 배열</title>
+	<!-- react코드 순서 중요-->
+	<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+	<!-- cdn코드 -->
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+<script type="text/babel">
+	const root = ReactDOM.createRoot(document.getElementById("root"));
+
+    function App(){
+
+		// disabled : 해당 input창 비활성화
+
+		let [flag, setFlag] = React.useState(true);
+
+		function onClick(){
+			setFlag(!flag);
+		}
+
+		return (
+			<div>
+				<input type="text" disabled={flag} />
+				<br/>
+				<button onClick={onClick}>토글</button>
+				<br/>
+				<input type="text" disabled={flag} />
+			</div>
+		);
+	};
+
+    root.render(<App/>)
+</script>
+</body>
+</html>
