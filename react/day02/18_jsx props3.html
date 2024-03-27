@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jsx props</title>
+	<!-- react코드 순서 중요-->
+	<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+	<!-- cdn코드 -->
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+		const root = ReactDOM.createRoot(document.getElementById("root"));
+
+		// Btn컴포넌트를 만들고 App컴포넌트에 Btn컴포넌트 2개를 배치
+		// 토글 버튼, 일반 버튼을 배치
+		// 토글 버튼 : 일반 버튼이 토글이 되도록 코드를 작성
+		
+		
+		
+		function App(){
+			let [flag, setFlag] = React.useState(true);
+			
+			function onButtonClick(){
+				setFlag(!flag);
+			}
+			
+			return (
+				<div>
+					<Btn 
+						text={"토글 버튼"}
+						clickFunction={onButtonClick}
+						flag={true}
+					/>
+					<Btn 
+						text={"일반 버튼"}
+						flag={flag}
+					/>
+				</div>
+			);
+		};
+
+		function Btn({text, clickFunction, flag}){
+			return (flag ? <button onClick={clickFunction}>{text}</button> : null);
+		}
+		root.render(<App/>)
+	</script>
+</body>
+</html>
