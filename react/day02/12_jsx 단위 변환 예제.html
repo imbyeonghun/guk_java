@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jsx 배열</title>
+	<!-- react코드 순서 중요-->
+	<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+	<!-- cdn코드 -->
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+<script type="text/babel">
+	const root = ReactDOM.createRoot(document.getElementById("root"));
+	// 1번째 input에 분단위를 입력받고 버튼을 누르면 2번째 input에 시간단위로 출력
+	// math.floor(값) : 소수점 버림
+
+    function App(){
+		
+		let [amount, setAmount] = React.useState(0);
+		let [hour, setHour] = React.useState(0);
+
+		function buttonClick(){
+			setHour(Math.floor(amount / 60));
+		}
+
+		return (
+			<div>
+				<input type="text" onChange={(e)=>setAmount(e.target.value)} />
+				<button onClick={()=>setHour(amount)}>변환</button>
+				<br/>
+				<input type="text" readonly value={Math.floor(hour / 60)}/>시간
+				<input type="text" readonly value={hour % 60}/>분
+			</div>
+		);
+	};
+
+    root.render(<App/>)
+</script>
+</body>
+</html>
