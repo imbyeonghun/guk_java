@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jsx props</title>
+	<!-- react코드 순서 중요-->
+	<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+	<!-- cdn코드 -->
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+	<style>
+		.text-red{ color: red; }
+		.text-blue{ color: blue; }
+		.text-green{ color: green; }
+	</style>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+		const root = ReactDOM.createRoot(document.getElementById("root"));
+
+		/*
+		h1태그를 만들고 안녕하세요.를 입력해서 화면에 출력하도록 작성
+		h1태그에 text-red라는 클래스를 추가하고
+		style태그로 text-red레 글자색을 빨간색으로 적용
+		h1태그 밑에 버튼 3개를 추가하는 코드
+			빨간색
+			파란색
+			녹색
+		추가한 버튼을 클릭하면 h1태그의 글자색이 클릭한 색상으로 변경되도록
+			state생성
+			style태그에 클래스 추가 
+			text-red,text-blue,text-green
+			버튼을 클릭하면 h1태그의 클래스명을 버튼의 색상으로 변경되도록 변경
+		*/
+		
+		function App(){
+			let [color, setColor] = React.useState("red");
+
+			function onRed(){
+				setColor("red");
+			}
+			function onBlue(){
+				setColor("blue");
+			}
+			function onGreen(){
+				setColor("green");
+			}
+
+			return (
+				<div>
+					<h1 className={"text-"+color}>안녕하세요</h1>
+					<button onClick={onRed}>빨간색</button>
+					<button onClick={onBlue}>파란색</button>
+					<button onClick={onGreen}>녹색</button>
+				</div>
+			);
+		};
+
+		root.render(<App/>)
+	</script>
+</body>
+</html>
