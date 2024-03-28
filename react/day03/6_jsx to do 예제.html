@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jsx to do List</title>
+	<!-- react코드 순서 중요-->
+	<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+	<!-- script babel type cdn코드 -->
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+	<!-- prop type cdn코드 -->
+	<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+		const root = ReactDOM.createRoot(document.getElementById("root"));
+
+		/*
+		입력창과 버튼을 추가하고, 입력창에 오늘의 할일을 입력받아 버튼을 클릭하면
+		오늘의 할일이 추가되는 코드 작성
+		1. 입력창과 버튼을 추가
+		2. 입력창에 내용을 입력할때 값을 저장하는 state와 코드를 작성
+		3. 버튼을 클릭하면 2번에서 저장된 값을 읽어와서 다른 state에 추가
+		4. 3번에서 추가한 state를 이용하여 화면에 오늘의 할일을 출력
+		*/
+
+		function App(){
+
+			let [str, setStr] = React.useState("");
+			let [list, setList] = React.useState([]);
+
+			function inputChange(e){
+				setStr(e.target.value);
+			}
+
+			function click(){
+				setList([...list, str]);
+				setStr("");
+			}
+
+			function deleteStr(index){
+				let tmpList = [...list];
+				tmpList.splice(index,1);
+				setList(tmpList);
+			}
+
+			function doLiet(item,index){
+				return <li>{item} <button onClick={()=>deleteStr(index)}>&times;</button></li>
+			}
+			return (
+				<div>
+					<h1>오늘의 할일</h1>
+					<input type="text" onChange={inputChange} value={str}/>
+					<button onClick={click}>등록</button>
+					<ul>
+						{list.map(doLiet)}
+					</ul>
+				</div>
+			);
+		};
+
+		root.render(<App/>)
+	</script>
+</body>
+</html>
