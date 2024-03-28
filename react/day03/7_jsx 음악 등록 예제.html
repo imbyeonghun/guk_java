@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jsx to do List</title>
+	<!-- react코드 순서 중요-->
+	<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+	<!-- script babel type cdn코드 -->
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+	<!-- prop type cdn코드 -->
+	<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+		const root = ReactDOM.createRoot(document.getElementById("root"));
+
+		/*
+		음악 장르,제목, 가수를 입력받아 음악을 등록하고
+		등록된 음악을 table태그로 화면에 출력하는 코드 작성
+		*/
+
+		function App(){
+
+			let [list, setList] = React.useState([]);
+
+			return (
+				<div>
+					<Form setList={setList}/>
+					<Table list={list}/>
+				</div>
+			);
+		};
+
+		function Form({setList}){
+			
+			let [genre, setGenre] = React.useState("");
+			let [title, setTitle] = React.useState("");
+			let [singer, setSinger] = React.useState("");
+
+			function changeGenre(e){setGenre(e.target.value);}
+			function changeTitle(e){setTitle(e.target.value)}
+			function changeSinger(e){setSinger(e.target.value)}
+
+			function insertSong(){
+				let song = { genre, title, singer }
+				setList((list)=>[...list, song]);
+				setGenre("");
+				setSinger("");
+				setTitle("");
+			}
+
+			return (
+				<form>
+					<div>
+						<label>음악 장르 </label>
+						<input value={genre} onChange={changeGenre}/>
+					</div>
+					<div>
+						<label>제목 </label>
+						<input value={title} onChange={changeTitle}/>
+					</div>
+					<div>
+						<label>가수 </label>
+						<input value={singer} onChange={changeSinger}/>
+					</div>
+					<button type="button" onClick={insertSong}>등록</button>
+					<hr/>
+				</form>
+			);
+		}
+
+		function Table({list}){
+			return (
+				<table>
+					<thead>
+						<tr>
+							<th>음악장르</th>
+							<th>제목</th>
+							<th>가수</th>
+						</tr>
+					</thead>
+					<tbody>
+						{list.map((item)=>{
+							return(
+									<tr>
+										<th>{item.genre}</th>
+										<th>{item.title}</th>
+										<th>{item.singer}</th>
+									</tr>	
+								);
+							})}
+					</tbody>	
+				</table>
+			);
+		}
+
+		root.render(<App/>)
+	</script>
+</body>
+</html>
