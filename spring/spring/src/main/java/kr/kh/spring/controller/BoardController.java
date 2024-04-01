@@ -183,4 +183,15 @@ public class BoardController {
 		map.put("result", res);
 		return map;
 	}
+	
+	@ResponseBody
+	@GetMapping("/api/board/list")
+	public Map<String, Object> apiBoardList(){
+		
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		ArrayList<BoardVO> list = boardService.getBoardList(new Criteria());
+		map.put("list", list);
+		return map;
+	}
+	
 }
