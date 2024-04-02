@@ -3,9 +3,12 @@ package kr.kh.spring3.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.kh.spring3.model.vo.MemberVO;
 import kr.kh.spring3.service.MemberService;
 import lombok.extern.log4j.Log4j;
 
@@ -26,4 +29,42 @@ public class HomeController {
 		return "/main/home";
 	}
 	
+	@GetMapping("/signup")
+	public String signup(Model model) {
+
+		return "/member/signup";
+	}
+	
+	@PostMapping("/signup")
+	public String signupPost(Model model, MemberVO member) {
+
+		if(memberService.insertMember(member)) {
+			model.addAttribute("msg","회원가입을 했습니다.");
+			model.addAttribute("url","/");
+		}else {
+			model.addAttribute("msg","회원가입을 하지 못했습니다.");
+			model.addAttribute("url","/signup");
+		}
+		return "message";
+	}
+	
+	@GetMapping("/login")
+	public String login(Model model) {
+		model.addAttribute("title", "회원가입");
+		return "/member/login";
+	}
+	
+	@PostMapping("/login")
+	public String loginPost(Model model, MemberVO member) {
+
+		if(memberService.getmember(member)) {
+			model.addAttribute("msg","로그인을 했습니다.");
+			model.addAttribute("url","/");
+		}else {
+			model.addAttribute("msg","로그인을 하지 못했습니다.");
+			model.addAttribute("url","/login");
+		}
+		return "message";
+	}
+
 }
