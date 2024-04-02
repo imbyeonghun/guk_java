@@ -55,9 +55,6 @@ public class MemberServiceImp implements MemberService {
 		if(!passwordEncoder.matches(member.getMe_pw(), user.getMe_pw()))
 			return false;
 		
-		
-		
-		
-		return false;
+		return true;
 	}
 }

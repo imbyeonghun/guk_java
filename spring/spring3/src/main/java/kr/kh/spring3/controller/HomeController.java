@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.mysql.cj.Session;
+
 import kr.kh.spring3.model.vo.MemberVO;
 import kr.kh.spring3.service.MemberService;
 import lombok.extern.log4j.Log4j;
