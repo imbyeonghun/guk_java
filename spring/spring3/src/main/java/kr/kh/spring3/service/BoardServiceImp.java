@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.spring3.dao.BoardDAO;
 import kr.kh.spring3.model.vo.BoardVO;
+import kr.kh.spring3.pagination.Criteria;
 
 @Service
 public class BoardServiceImp implements BoardService {
@@ -15,7 +16,18 @@ public class BoardServiceImp implements BoardService {
 	BoardDAO boardDao;
 
 	@Override
-	public ArrayList<BoardVO> getPostList() {
-		return boardDao.selectPostList();
+	public ArrayList<BoardVO> getPostList(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return boardDao.selectPostList(cri);
+	}
+
+	@Override
+	public int getPostCount(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return boardDao.selectPostCount(cri);
 	}
 }

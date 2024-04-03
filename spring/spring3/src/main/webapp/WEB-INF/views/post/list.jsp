@@ -22,7 +22,7 @@
 		<tbody>
 			<c:forEach items="${postList}" var="post" varStatus="vs">
 				<tr>
-					<td>${postList.size() - vs.index}</td>
+					<td>${pm.totalCount - vs.index - pm.cri.pageStart}</td>
 					<td>
 						<a>${post.bo_title}</a>
 					</td>
@@ -32,5 +32,32 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<ul class="pagination justify-content-center">
+		<c:if test="${pm.prev}">
+			<c:url value="/post/list" var="url">
+				<c:param name="page" value="${pm.startPage-1}"/>
+			</c:url>
+			<li class="page-item">
+				<a class="page-link" href="${url}">이전</a>
+			</li>
+		</c:if>
+		<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+			<c:url value="/post/list" var="url">
+				<c:param name="page" value="${i}"/>
+			</c:url>
+			<c:set var="active" value="${pm.cri.page == i ? 'active' : ''}"/>
+			<li class="page-item ${active}">
+				<a class="page-link" href="${url}">${i}</a>
+			</li>
+		</c:forEach>
+		<c:if test="${pm.next}">
+			<c:url value="/post/list" var="url">
+				<c:param name="page" value="${pm.endPage+1}"/>
+			</c:url>
+			<li class="page-item">
+				<a class="page-link" href="${url}">다음</a>
+			</li>
+		</c:if>
+	</ul>
 </body>
 </html>
