@@ -6,7 +6,6 @@
 	<a class="navbar-brand" href="#">
 		<img alt="logo" src="<c:url value="/resources/img/bird.jpg"/>" style="width: 40px;"/>
 	</a>
-	
 	<ul class="navbar-nav">
 		<c:choose>
 			<c:when test="${user == null }">
@@ -24,7 +23,7 @@
 			</c:otherwise>
 		</c:choose>
 		<li class="nav-item">
-			<a class="nav-link" href="#">Link 3</a>
+			<a class="nav-link" href="<c:url value="/post/list"/>">게시글 조회</a>
 		</li>
 	</ul>
 </nav>
