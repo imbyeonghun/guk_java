@@ -19,6 +19,7 @@
 			<label for="pw">pw:</label>
 			<input type="password" class="form-control" id="pw" placeholder="Enter pw" name="me_pw">
 		</div>
+		<button type="submit" class="btn btn-primary">로그인</button>
 	</form>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package kr.kh.spring3.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +35,7 @@ public class HomeController {
 	
 	@GetMapping("/signup")
 	public String signup(Model model) {
-
+		model.addAttribute("title", "회원가입");
 		return "/member/signup";
 	}
 	
@@ -52,14 +54,15 @@ public class HomeController {
 	
 	@GetMapping("/login")
 	public String login(Model model) {
-		model.addAttribute("title", "회원가입");
+		model.addAttribute("title", "로그인");
 		return "/member/login";
 	}
 	
 	@PostMapping("/login")
 	public String loginPost(Model model, MemberVO member) {
-
-		if(memberService.getmember(member)) {
+		MemberVO user = memberService.login(member);
+		model.addAttribute("user",user);
+		if(user != null) {
 			model.addAttribute("msg","로그인을 했습니다.");
 			model.addAttribute("url","/");
 		}else {

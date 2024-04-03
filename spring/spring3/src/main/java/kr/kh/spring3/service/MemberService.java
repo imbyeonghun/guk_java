@@ -8,6 +8,6 @@ public interface MemberService {
 
 	boolean insertMember(MemberVO member);
 
-	boolean getmember(MemberVO member);
+	MemberVO login(MemberVO member);
 
 }

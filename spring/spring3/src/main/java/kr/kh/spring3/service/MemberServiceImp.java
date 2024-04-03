@@ -27,7 +27,8 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public boolean insertMember(MemberVO member) {
-		if(!CheckStr(member.getMe_id()) ||
+		if(member == null ||
+			!CheckStr(member.getMe_id()) ||
 			!CheckStr(member.getMe_email()) ||
 			!CheckStr(member.getMe_pw())) 
 			return false;
@@ -45,16 +46,20 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public boolean getmember(MemberVO member) {
-		if(!CheckStr(member.getMe_id()) ||
+	public MemberVO login(MemberVO member) {
+		if(member == null ||
+			!CheckStr(member.getMe_id()) ||
 			!CheckStr(member.getMe_pw())) 
-				return false;
+				return null;
 		
 		// 해당 아이디의 DB에 저장된 비밀번호와 입력된 비밀번호를 확인 
 		MemberVO user = memberDao.selectMemberById(member.getMe_id());
-		if(!passwordEncoder.matches(member.getMe_pw(), user.getMe_pw()))
-			return false;
+		if(user ==null) 
+			return null;
 		
-		return true;
+		if(!passwordEncoder.matches(member.getMe_pw(), user.getMe_pw()))
+			return null;
+		
+		return user;
 	}
 }
