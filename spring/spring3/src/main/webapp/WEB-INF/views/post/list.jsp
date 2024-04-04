@@ -10,6 +10,21 @@
 </head>
 <body>
 	<h1>게시글 리스트</h1>
+	<form action="<c:url value="/post/list"/>">
+		<div class="input-group mb-3">
+			<select name="type" class="form-control">
+				<option value="all" <c:if test="${pm.cri.type == 'all'}">selected</c:if>>전체</option>
+				<option value="title" <c:if test="${pm.cri.type == 'title'}">selected</c:if>>제목</option>
+				<option value="writer" <c:if test="${pm.cri.type == 'writer'}">selected</c:if>>작성자</option>
+			</select>
+			<input type="text" class="form-control" placeholder="Search" name="search" value="${pm.cri.search}">
+			<button class="btn btn-outline-success">검색</button>
+		</div>
+		<select class="form-control col-4 offset-8 mb-4" name="order">
+			<option value="bo_num">최신순</option>
+			<option value="bo_view">조회수순</option>
+		</select>
+	</form>
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -36,6 +51,8 @@
 		<c:if test="${pm.prev}">
 			<c:url value="/post/list" var="url">
 				<c:param name="page" value="${pm.startPage-1}"/>
+				<c:param name="type" value="${pm.cri.type}"/>
+				<c:param name="search" value="${pm.cri.search}"/>
 			</c:url>
 			<li class="page-item">
 				<a class="page-link" href="${url}">이전</a>
@@ -44,6 +61,8 @@
 		<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
 			<c:url value="/post/list" var="url">
 				<c:param name="page" value="${i}"/>
+				<c:param name="type" value="${pm.cri.type}"/>
+				<c:param name="search" value="${pm.cri.search}"/>
 			</c:url>
 			<c:set var="active" value="${pm.cri.page == i ? 'active' : ''}"/>
 			<li class="page-item ${active}">
@@ -53,6 +72,8 @@
 		<c:if test="${pm.next}">
 			<c:url value="/post/list" var="url">
 				<c:param name="page" value="${pm.endPage+1}"/>
+				<c:param name="type" value="${pm.cri.type}"/>
+				<c:param name="search" value="${pm.cri.search}"/>
 			</c:url>
 			<li class="page-item">
 				<a class="page-link" href="${url}">다음</a>
