@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h1>게시글 리스트</h1>
-	<form action="<c:url value="/post/list"/>">
+	<form action="<c:url value="/post/list"/>" id="searchForm">
 		<div class="input-group mb-3">
 			<select name="type" class="form-control">
 				<option value="all" <c:if test="${pm.cri.type == 'all'}">selected</c:if>>전체</option>
@@ -47,41 +47,49 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<ul class="pagination justify-content-center">
-		<c:if test="${pm.prev}">
-			<c:url value="/post/list" var="url">
-				<c:param name="page" value="${pm.startPage-1}"/>
-				<c:param name="type" value="${pm.cri.type}"/>
-				<c:param name="search" value="${pm.cri.search}"/>
-				<c:param name="order" value="${pm.cri.order}"/>
-			</c:url>
-			<li class="page-item">
-				<a class="page-link" href="${url}">이전</a>
-			</li>
-		</c:if>
-		<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
-			<c:url value="/post/list" var="url">
-				<c:param name="page" value="${i}"/>
-				<c:param name="type" value="${pm.cri.type}"/>
-				<c:param name="search" value="${pm.cri.search}"/>
-				<c:param name="order" value="${pm.cri.order}"/>
-			</c:url>
-			<c:set var="active" value="${pm.cri.page == i ? 'active' : ''}"/>
-			<li class="page-item ${active}">
-				<a class="page-link" href="${url}">${i}</a>
-			</li>
-		</c:forEach>
-		<c:if test="${pm.next}">
-			<c:url value="/post/list" var="url">
-				<c:param name="page" value="${pm.endPage+1}"/>
-				<c:param name="type" value="${pm.cri.type}"/>
-				<c:param name="search" value="${pm.cri.search}"/>
-				<c:param name="order" value="${pm.cri.order}"/>
-			</c:url>
-			<li class="page-item">
-				<a class="page-link" href="${url}">다음</a>
-			</li>
-		</c:if>
-	</ul>
+	<a href="<c:url value="/post/insert"/>" class="btn btn-outline-success">글 쓰기</a>
+	<div>
+		<ul class="pagination justify-content-center">
+			<c:if test="${pm.prev}">
+				<c:url value="/post/list" var="url">
+					<c:param name="page" value="${pm.startPage-1}"/>
+					<c:param name="type" value="${pm.cri.type}"/>
+					<c:param name="search" value="${pm.cri.search}"/>
+					<c:param name="order" value="${pm.cri.order}"/>
+				</c:url>
+				<li class="page-item">
+					<a class="page-link" href="${url}">이전</a>
+				</li>
+			</c:if>
+			<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+				<c:url value="/post/list" var="url">
+					<c:param name="page" value="${i}"/>
+					<c:param name="type" value="${pm.cri.type}"/>
+					<c:param name="search" value="${pm.cri.search}"/>
+					<c:param name="order" value="${pm.cri.order}"/>
+				</c:url>
+				<c:set var="active" value="${pm.cri.page == i ? 'active' : ''}"/>
+				<li class="page-item ${active}">
+					<a class="page-link" href="${url}">${i}</a>
+				</li>
+			</c:forEach>
+			<c:if test="${pm.next}">
+				<c:url value="/post/list" var="url">
+					<c:param name="page" value="${pm.endPage+1}"/>
+					<c:param name="type" value="${pm.cri.type}"/>
+					<c:param name="search" value="${pm.cri.search}"/>
+					<c:param name="order" value="${pm.cri.order}"/>
+				</c:url>
+				<li class="page-item">
+					<a class="page-link" href="${url}">다음</a>
+				</li>
+			</c:if>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		$("[name=order]").change(function(){
+			$("#searchForm").submit();	// 이벤트 실행
+		});
+	</script>
 </body>
 </html>

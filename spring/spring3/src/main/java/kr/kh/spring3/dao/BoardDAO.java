@@ -13,4 +13,6 @@ public interface BoardDAO {
 
 	int selectPostCount(@Param("cri")Criteria cri);
 
+	boolean insertPost(@Param("board")BoardVO board);
+
 }
