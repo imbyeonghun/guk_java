@@ -16,14 +16,19 @@ function App() {
      
     let [list, setList] = useState([{
         num : 1,
-        title : "공지사항2",
-        singer : "admin",
-        genre : "공지사항2입니다."
+        title : "Movie1",
+        genre : "Drama",
+        releaseDate : "2022-01-01"
         },{
         num : 2,
-        title : "공지사항",
-        singer : "admin",
-        genre : "공지사항입니다."
+        title : "Movie2",
+        genre : "Action",
+        releaseDate : "2022-02-01"
+        },{
+        num : 3,
+        title : "Movie3",
+        genre : "Comedy",
+        releaseDate : "2022-03-01"
         }
     ]);
 
@@ -44,8 +49,8 @@ function App() {
     return (
         <BrowserRouter>
             <ul className="menu-list">
-                <li><Link to="/">메인</Link></li>
-                <li><Link to="/insert">음악 추가</Link></li>
+                <li><Link to="/">List</Link></li>
+                <li><Link to="/insert">Add New Music</Link></li>
             </ul>
             <Routes>
                 <Route path="/" exact element={<Home list={list} addSong={addSong} remove={removeSong}/>} />
@@ -72,29 +77,33 @@ function Home({list, addSong, remove}) {
     }
 
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th>음악 번호</th>
-                    <th>음악 제목</th>
-                    <th>음악 가수</th>
-                    <th>음악 장르</th>
-                </tr>
-            </thead>
-            <tbody>
-                {list.map((item)=>{
-                    return (
-                        <tr>
-                            <th>{item.num}</th>
-                            <th>{item.title}</th>
-                            <th>{item.singer}</th>
-                            <th>{item.genre}</th>
-                            <button type='button' onClick={()=>remove(item.num)}>&times;</button>
-                        </tr>
-                    );
-                })}
-            </tbody>
-        </table>
+        <div className='ListBox'>
+            <h1>Movies</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Genre</th>
+                        <th>Release Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {list.map((item)=>{
+                        return (
+                            <tr>
+                                <th>{item.num}</th>
+                                <th>{item.title}</th>
+                                <th>{item.genre}</th>
+                                <th>{item.releaseDate}</th>
+                                <button type='button' onClick={()=>remove(item.num)}>Delete</button>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
+        </div>
     );
 };
 
@@ -102,8 +111,8 @@ function Insert() {
     
     let [num, setNum] = useState(0);
     let [title, setTitle] = useState(0);
-    let [singer, setSinger] = useState(0);
     let [genre, setGenre] = useState(0);
+    let [releaseDate, setReleaseDate] = useState(0);
 
     // 다른 페이지로 정보를 전송하기 위해서 navigate 사용
     const navigate = useNavigate();
@@ -112,7 +121,7 @@ function Insert() {
         // 매개변수 : 보낼 url, 상태정보
         navigate("/", {
             state : {
-                num, title, singer, genre
+                num, title, genre, releaseDate
             }
         });
     }
@@ -121,24 +130,21 @@ function Insert() {
 
     return (
         <div>
-            <h1>음악 추가</h1>
+            <h1>Create Movie</h1>
             <div>
-                <label>번호</label>
-                <input type='number' placeholder='번호' onChange={numChange} />
+                <input type='number' placeholder='Input movie id' onChange={numChange} />
             </div>
             <div>
-                <label>제목</label>
-                <input type='text' placeholder='제목' onChange={(e)=>setTitle(e.target.value)} />
+                <input type='text' placeholder='Input movie title' onChange={(e)=>setTitle(e.target.value)} />
             </div>
             <div>
-                <label>가수</label>
-                <input type='text' placeholder='가수' onChange={(e)=>setSinger(e.target.value)} />
+                <input type='text' placeholder='Input movie genre' onChange={(e)=>setGenre(e.target.value)} />
             </div>
             <div>
-                <label>장르</label>
-                <input type='text' placeholder='장르' onChange={(e)=>setGenre(e.target.value)} />
+                <label>출시일 : </label>
+                <input type='date' placeholder='장르' onChange={(e)=>setReleaseDate(e.target.value)} />
             </div>
-            <button type='button' onClick={insertSong}>음악 추가</button>
+            <button type='button' onClick={insertSong}>Add Movie</button>
         </div>
     );
 };
