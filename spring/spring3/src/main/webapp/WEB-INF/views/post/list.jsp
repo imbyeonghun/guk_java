@@ -21,8 +21,8 @@
 			<button class="btn btn-outline-success">검색</button>
 		</div>
 		<select class="form-control col-4 offset-8 mb-4" name="order">
-			<option value="bo_num">최신순</option>
-			<option value="bo_view">조회수순</option>
+			<option value="bo_num" <c:if test="${pm.cri.order == 'bo_num'}">selected</c:if>>최신순</option>
+			<option value="bo_view" <c:if test="${pm.cri.order == 'bo_view'}">selected</c:if>>조회수순</option>
 		</select>
 	</form>
 	<table class="table table-hover">
@@ -53,6 +53,7 @@
 				<c:param name="page" value="${pm.startPage-1}"/>
 				<c:param name="type" value="${pm.cri.type}"/>
 				<c:param name="search" value="${pm.cri.search}"/>
+				<c:param name="order" value="${pm.cri.order}"/>
 			</c:url>
 			<li class="page-item">
 				<a class="page-link" href="${url}">이전</a>
@@ -63,6 +64,7 @@
 				<c:param name="page" value="${i}"/>
 				<c:param name="type" value="${pm.cri.type}"/>
 				<c:param name="search" value="${pm.cri.search}"/>
+				<c:param name="order" value="${pm.cri.order}"/>
 			</c:url>
 			<c:set var="active" value="${pm.cri.page == i ? 'active' : ''}"/>
 			<li class="page-item ${active}">
@@ -74,6 +76,7 @@
 				<c:param name="page" value="${pm.endPage+1}"/>
 				<c:param name="type" value="${pm.cri.type}"/>
 				<c:param name="search" value="${pm.cri.search}"/>
+				<c:param name="order" value="${pm.cri.order}"/>
 			</c:url>
 			<li class="page-item">
 				<a class="page-link" href="${url}">다음</a>

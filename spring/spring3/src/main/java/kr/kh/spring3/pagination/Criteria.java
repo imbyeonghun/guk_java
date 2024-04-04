@@ -12,6 +12,7 @@ public class Criteria {
 	
 	private String search = ""; 	// 검색어 : 기본값 - 빈문자열=> 전체 검색
 	private String type = "all"; 	// 검색 타입 : 기본값 - 전체검색
+	private String order = "bo_num";
 	
 	public Criteria(int page) {
 		this.page = page;
@@ -22,10 +23,11 @@ public class Criteria {
 		this.perPageNum = perPageNum;
 	}
 	
-	public Criteria(int page, int perPageNum, String type, String search) {
+	public Criteria(int page, int perPageNum, String type, String search, String order) {
 		this(page, perPageNum);
 		this.type = type == null ? "" : type;
 		this.search = search == null ? "" : search;
+		this.order = order == null ? "" : order;
 	}
 	
 	public int getPageStart() {
