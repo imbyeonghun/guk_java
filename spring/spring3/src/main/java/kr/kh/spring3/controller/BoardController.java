@@ -9,13 +9,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.spring3.model.vo.BoardVO;
+import kr.kh.spring3.model.vo.CommunityVO;
 import kr.kh.spring3.model.vo.MemberVO;
 import kr.kh.spring3.pagination.Criteria;
 import kr.kh.spring3.pagination.PageMaker;
 import kr.kh.spring3.service.BoardService;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 @Controller
 public class BoardController {
 	
@@ -38,16 +42,19 @@ public class BoardController {
 	
 	@GetMapping("/post/insert")
 	public String insert(Model model) {
-		model.addAttribute("title", "게시글 등록");
 		
+		ArrayList<CommunityVO> community = boardService.getCommunityList();
+		model.addAttribute("community",community);
+		model.addAttribute("title", "게시글 등록");
 		return "/post/insert";
 	}
 	
 	@PostMapping("/post/insert")
-	public String insertPost(Model model, BoardVO board, HttpSession session) {
+	public String insertPost(Model model, BoardVO board, HttpSession session, MultipartFile[] file) {
 		
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		boolean res = boardService.insertPost(user, board);
+		boolean res = boardService.insertPost(user, board, file);
+		
 		if(res) {
 			model.addAttribute("msg","게시글을 등록했습니다.");
 			model.addAttribute("url","/post/list");
