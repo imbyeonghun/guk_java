@@ -9,6 +9,7 @@
 <title>게시글 리스트</title>
 </head>
 <body>
+<div class="container">
 	<h1>게시글 리스트</h1>
 	<form action="<c:url value="/post/list"/>" id="searchForm">
 		<div class="input-group mb-3">
@@ -39,7 +40,7 @@
 				<tr>
 					<td>${pm.totalCount - vs.index - pm.cri.pageStart}</td>
 					<td>
-						<a>${post.bo_title}</a>
+						<a href="<c:url value="/post/detail?num=${post.bo_num}"/>">${post.bo_title}</a>
 					</td>
 					<td>${post.bo_me_id}</td>
 					<td>${post.bo_view}</td>
@@ -86,6 +87,7 @@
 			</c:if>
 		</ul>
 	</div>
+</div>
 	<script type="text/javascript">
 		$("[name=order]").change(function(){
 			$("#searchForm").submit();	// 이벤트 실행

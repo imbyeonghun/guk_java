@@ -91,4 +91,19 @@ public class BoardServiceImp implements BoardService {
 	public ArrayList<CommunityVO> getCommunityList() {
 		return boardDao.selectCommunity();
 	}
+
+	@Override
+	public BoardVO getBoard(int bo_num) {
+		return boardDao.selectBoard(bo_num);
+	}
+
+	@Override
+	public ArrayList<FileVO> getFile(int num) {
+		return boardDao.selectFile(num);
+	}
+
+	@Override
+	public void upView(int num) {
+		boardDao.updateView(num);
+	}
 }
